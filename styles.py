@@ -1,0 +1,109 @@
+STYLE = """
+/* ===== Базовый фон и текст ===== */
+QWidget {
+    background: #FFFCF7;
+    color: #2A2118;
+    font-family: 'Manrope';
+    font-size: 14px;
+}
+
+/* ===== Заголовки ===== */
+QLabel#h1 { font-size: 24px; font-weight: 800; color: #2A2118; }
+QLabel#h2 { font-size: 18px; font-weight: 700; color: #2A2118; }
+QLabel#muted { color: #8A7355; font-size: 13px; }
+QLabel#theory { color: #6B5A42; font-size: 15px; line-height: 1.6; }
+
+/* ===== Большое равенство в тренажёре ===== */
+QLabel#equation { font-size: 40px; font-weight: 800; color: #2A2118; }
+
+/* ===== Контурная кнопка (по умолчанию) ===== */
+QPushButton {
+    background: #FFFFFF;
+    color: #2A2118;
+    border: 1px solid #E7DECF;
+    border-radius: 10px;
+    padding: 11px 15px;
+    font-weight: 600;
+}
+QPushButton:hover  { background: #FBF4E9; }
+QPushButton:pressed { background: #F3E9D8; }
+
+/* ===== Акцент-кнопка (главное действие) ===== */
+QPushButton#accent {
+    background: #D9822B;
+    color: #FFFFFF;
+    border: none;
+}
+QPushButton#accent:hover   { background: #C0731F; }
+QPushButton#accent:pressed { background: #A8631A; }
+
+/* ===== Поле ввода ===== */
+QLineEdit {
+    background: #FFFFFF;
+    border: 1px solid #E7DECF;
+    border-radius: 10px;
+    padding: 11px 14px;
+    color: #2A2118;
+}
+QLineEdit:focus { border: 1px solid #D9822B; }
+
+/* ===== Чип / плашка (оценка, урок) ===== */
+QLabel#chip {
+    background: #FBEFD9;
+    color: #9A5E12;
+    border-radius: 12px;
+    padding: 6px 13px;
+    font-weight: 700;
+}
+
+/* ===== Тёплая карточка-метрика (статистика) ===== */
+QFrame#metric {
+    background: #FBF4E9;
+    border-radius: 12px;
+}
+
+/* ===== Тёплый блок (картинка-заглушка, пример) ===== */
+QLabel#block {
+    background: #FBF4E9;
+    border-radius: 12px;
+    color: #8A7355;
+}
+
+/* ===== Список тем в обучении ===== */
+QListWidget {
+    background: #FFFFFF;
+    border: 1px solid #E7DECF;
+    border-radius: 10px;
+    padding: 4px;
+}
+QListWidget::item { padding: 9px 11px; border-radius: 8px; color: #6B5A42; }
+QListWidget::item:selected { background: #D9822B; color: #FFFFFF; }
+
+/* ===== Варианты ответа (радиокнопки) ===== */
+QRadioButton {
+    border: 1px solid #E7DECF;
+    border-radius: 10px;
+    padding: 11px 14px;
+    color: #2A2118;
+}
+QRadioButton:checked { border: 1px solid #D9822B; background: #FFF6EA; }
+
+/* ===== Кнопки меню (маркер слева, текст по левому краю) ===== */
+QPushButton#menu {
+    text-align: left;
+    padding: 12px 14px;
+}
+QPushButton#menuAccent {
+    text-align: left;
+    padding: 12px 14px;
+    background: #D9822B;
+    color: #FFFFFF;
+    border: none;
+}
+QPushButton#menuAccent:hover   { background: #C0731F; }
+QPushButton#menuAccent:pressed { background: #A8631A; }
+"""
+
+
+def apply(app):
+    app.setStyleSheet(STYLE)
