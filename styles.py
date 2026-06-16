@@ -53,7 +53,8 @@ QLineEdit:focus { border: 1px solid #D9822B; }
 /* ===== Плашка-чип с иконкой ===== */
 QFrame#chipFrame {
     background: #FBEFD9;
-    border-radius: 999px;
+    border: 1px solid #FBEFD9;   /* граница того же цвета — нужна, иначе скругление не рисуется */
+    border-radius: 16px;
 }
 QLabel#chipText {
     color: #9A5E12;

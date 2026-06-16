@@ -28,8 +28,8 @@ class TestScreen(QWidget):
         chip_row.setSpacing(8)
 
         chip_icon = QLabel()
-        pix = QPixmap(img_path("logo.png"))
-        pix = pix.scaledToWidth(18, Qt.TransformationMode.SmoothTransformation)
+        pix = QPixmap(img_path("logo_inv.png"))
+        pix = pix.scaledToWidth(32, Qt.TransformationMode.SmoothTransformation)
         chip_icon.setPixmap(pix)
 
         self.progress_chip = QLabel("Вопрос 1 из 15")
@@ -78,6 +78,8 @@ class TestScreen(QWidget):
         self.next_btn = QPushButton("→  Далее")
         self.next_btn.setObjectName("accent")
         self.next_btn.setMinimumWidth(300)
+        # пока что «Далее» сразу открывает экран результата
+        self.next_btn.clicked.connect(lambda: self.main.go_to(self.main.result))
 
         menu_btn = QPushButton("×  В меню")
         menu_btn.setMinimumWidth(150)
