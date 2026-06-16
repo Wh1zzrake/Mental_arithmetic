@@ -104,6 +104,45 @@ QPushButton#menuAccent {
 }
 QPushButton#menuAccent:hover   { background: #C0731F; }
 QPushButton#menuAccent:pressed { background: #A8631A; }
+
+/* ===== Чип-плашка как текст («Урок N», «Оценка: 4») ===== */
+QLabel#chip {
+    background: #FBEFD9;
+    color: #9A5E12;
+    border-radius: 12px;
+    padding: 6px 13px;
+    font-weight: 700;
+}
+
+/* ===== Надпись «Верно» (зелёный) ===== */
+QLabel#success { color: #1C8A52; font-weight: 700; }
+
+/* ===== Таблицы (рейтинг, история тестов) ===== */
+QTableWidget {
+    background: #FFFFFF;
+    border: 1px solid #E7DECF;
+    border-radius: 10px;
+    color: #2A2118;
+}
+QTableWidget::item { padding: 6px 8px; border: none; }
+QHeaderView::section {
+    background: #FBF4E9;
+    color: #8A7355;
+    border: none;
+    border-bottom: 1px solid #F0E8DA;
+    padding: 8px;
+    font-weight: 700;
+}
+QTableCornerButton::section { background: #FBF4E9; border: none; }
+
+/* ===== Полосы прокрутки (тонкие, в тон палитре) ===== */
+QScrollBar:vertical { background: transparent; width: 8px; margin: 2px; }
+QScrollBar::handle:vertical {
+    background: #E2C79A; border-radius: 4px; min-height: 24px;
+}
+QScrollBar::handle:vertical:hover { background: #D9822B; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
 """
 
 

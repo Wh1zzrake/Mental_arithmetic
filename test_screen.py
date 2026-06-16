@@ -57,8 +57,8 @@ class TestScreen(QWidget):
             self.beads.append(bead)
             beads_row.addWidget(bead)
 
-        # ----- вопрос-равенство -----
-        self.question = QLabel("47 × 11 = ?")
+        # ----- вопрос-равенство ----- («?» — оранжевый, как в мокапе)
+        self.question = QLabel('47 × 11 = <span style="color:#D9822B;">?</span>')
         self.question.setObjectName("equation")
 
         # ----- варианты ответа (радиокнопки) -----
@@ -83,8 +83,8 @@ class TestScreen(QWidget):
         menu_btn.setMinimumWidth(150)
         menu_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
 
-        buttons_row.addWidget(self.next_btn)
-        buttons_row.addWidget(menu_btn)
+        buttons_row.addWidget(self.next_btn, 2)
+        buttons_row.addWidget(menu_btn, 1)
 
         layout.addLayout(top_row)
         layout.addLayout(beads_row)

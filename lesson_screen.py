@@ -18,9 +18,6 @@ class LessonScreen(QWidget):
         layout.setContentsMargins(26, 26, 26, 26)
         layout.setSpacing(16)
 
-        title = QLabel("Обучение")
-        title.setObjectName("h1")
-
         # ----- две колонки -----
         columns = QHBoxLayout()
         columns.setSpacing(16)
@@ -88,7 +85,6 @@ class LessonScreen(QWidget):
         back_row.addWidget(back_btn)
         back_row.addStretch()
 
-        layout.addWidget(title)
         layout.addLayout(columns)
         layout.addLayout(back_row)
 
@@ -112,6 +108,7 @@ class LessonScreen(QWidget):
         lesson = self.lessons[index]
 
         self.topic_lesson_no.setText("Урок " + str(lesson["id"]))
+        self.topic_title.setText(lesson["title"])
         self.topic_theory.setText(lesson["theory"])
         self.topic_example.setText(lesson["example"])
 
