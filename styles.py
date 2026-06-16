@@ -47,13 +47,15 @@ QLineEdit {
 }
 QLineEdit:focus { border: 1px solid #D9822B; }
 
-/* ===== Чип / плашка (оценка, урок) ===== */
-QLabel#chip {
+/* ===== Плашка-чип с иконкой ===== */
+QFrame#chipFrame {
     background: #FBEFD9;
+    border-radius: 999px;
+}
+QLabel#chipText {
     color: #9A5E12;
-    border-radius: 12px;
-    padding: 6px 13px;
     font-weight: 700;
+    background: transparent;
 }
 
 /* ===== Тёплая карточка-метрика (статистика) ===== */

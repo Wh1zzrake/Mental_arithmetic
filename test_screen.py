@@ -1,8 +1,10 @@
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-                             QRadioButton, QButtonGroup, QPushButton)
+                             QRadioButton, QButtonGroup, QPushButton, QFrame)
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
+from paths import img_path
 
-BEAD_EMPTY = "background:#FFFCF7; border:2px solid #E2C79A; border-radius:8px;"
+BEAD_EMPTY  = "background:#FFFCF7; border:2px solid #E2C79A; border-radius:8px;"
 BEAD_FILLED = "background:#D9822B; border:2px solid #B4691E; border-radius:8px;"
 
 
@@ -15,8 +17,33 @@ class TestScreen(QWidget):
         layout.setContentsMargins(26, 26, 26, 26)
         layout.setSpacing(16)
 
-        title = QLabel("Тест")
-        title.setObjectName("h1")
+        # ----- верхняя строка: плашка «Вопрос N из 15» + группа -----
+        top_row = QHBoxLayout()
+
+        # плашка-чип: иконка-соробан + текст в одной «таблетке»
+        chip = QFrame()
+        chip.setObjectName("chipFrame")
+        chip_row = QHBoxLayout(chip)
+        chip_row.setContentsMargins(13, 6, 14, 6)
+        chip_row.setSpacing(8)
+
+        chip_icon = QLabel()
+        pix = QPixmap(img_path("logo.png"))
+        pix = pix.scaledToWidth(18, Qt.TransformationMode.SmoothTransformation)
+        chip_icon.setPixmap(pix)
+
+        self.progress_chip = QLabel("Вопрос 1 из 15")
+        self.progress_chip.setObjectName("chipText")
+
+        chip_row.addWidget(chip_icon)
+        chip_row.addWidget(self.progress_chip)
+
+        self.group_label = QLabel("Группа —")
+        self.group_label.setObjectName("muted")
+
+        top_row.addWidget(chip)
+        top_row.addStretch()
+        top_row.addWidget(self.group_label)
 
         # ----- ряд бусин прогресса (15 штук) -----
         beads_row = QHBoxLayout()
@@ -47,19 +74,22 @@ class TestScreen(QWidget):
 
         # ----- кнопки -----
         buttons_row = QHBoxLayout()
-        self.next_btn = QPushButton("Далее")
-        self.next_btn.setObjectName("accent")
 
-        menu_btn = QPushButton("В главное меню")
+        self.next_btn = QPushButton("→  Далее")
+        self.next_btn.setObjectName("accent")
+        self.next_btn.setMinimumWidth(300)
+
+        menu_btn = QPushButton("×  В меню")
+        menu_btn.setMinimumWidth(150)
         menu_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
 
-        buttons_row.addWidget(menu_btn)
-        buttons_row.addStretch()
         buttons_row.addWidget(self.next_btn)
+        buttons_row.addWidget(menu_btn)
 
-        layout.addWidget(title)
+        layout.addLayout(top_row)
         layout.addLayout(beads_row)
         layout.addWidget(self.question)
+        layout.addSpacing(6)
         layout.addLayout(options_box)
         layout.addStretch()
         layout.addLayout(buttons_row)

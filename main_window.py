@@ -46,3 +46,4 @@ class MainWindow(QMainWindow):
         if hasattr(screen, "refresh"):
             screen.refresh()
         self.stack.setCurrentWidget(screen)
+
