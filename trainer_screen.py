@@ -45,11 +45,12 @@ class TrainerListScreen(QWidget):
         back_btn = QPushButton("←  В главное меню")
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
 
+        layout.addStretch()            # отступ сверху — центрируем блок по вертикали
         layout.addWidget(title)
         layout.addLayout(grid)
         layout.addWidget(mix_btn)
         layout.addWidget(back_btn)
-        layout.addStretch()
+        layout.addStretch()            # отступ снизу
 
     def _task_btn(self, marker, label, key):
         """Создаёт одну карточку-кнопку с плашкой-маркером слева."""

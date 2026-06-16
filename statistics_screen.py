@@ -2,6 +2,8 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                              QTableWidget, QPushButton, QFrame,
                              QHeaderView, QAbstractItemView)
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QPixmap
+from paths import img_path
 
 
 # делает таблицу «чистой»: без сетки, без нумерации строк, колонки на всю ширину
@@ -25,8 +27,21 @@ class OverallStatsScreen(QWidget):
         layout.setContentsMargins(26, 26, 26, 26)
         layout.setSpacing(16)
 
-        title = QLabel("🏆  Рейтинг пользователей")
+        # ----- заголовок: иконка-кубок (в цвет палитры) + текст -----
+        title_row = QHBoxLayout()
+        title_row.setSpacing(10)
+
+        trophy = QLabel()
+        pix = QPixmap(img_path("trophy.png"))
+        pix = pix.scaledToWidth(30, Qt.TransformationMode.SmoothTransformation)
+        trophy.setPixmap(pix)
+
+        title = QLabel("Рейтинг пользователей")
         title.setObjectName("h1")
+
+        title_row.addWidget(trophy)
+        title_row.addWidget(title)
+        title_row.addStretch()
 
         # 3 колонки, как в мокапе
         self.table = QTableWidget(0, 3)
@@ -40,7 +55,7 @@ class OverallStatsScreen(QWidget):
         back_row.addWidget(back_btn)
         back_row.addStretch()
 
-        layout.addWidget(title)
+        layout.addLayout(title_row)
         layout.addWidget(self.table)
         layout.addLayout(back_row)
 

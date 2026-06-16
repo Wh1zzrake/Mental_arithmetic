@@ -7,6 +7,9 @@ QWidget {
     font-size: 14px;
 }
 
+/* подписи всегда прозрачные — иначе на тёплых карточках видны белые полосы */
+QLabel { background: transparent; }
+
 /* ===== Заголовки ===== */
 QLabel#h1 { font-size: 24px; font-weight: 800; color: #2A2118; }
 QLabel#h2 { font-size: 18px; font-weight: 700; color: #2A2118; }
@@ -83,12 +86,27 @@ QListWidget::item:selected { background: #D9822B; color: #FFFFFF; }
 
 /* ===== Варианты ответа (радиокнопки) ===== */
 QRadioButton {
+    background: #FFFFFF;
     border: 1px solid #E7DECF;
     border-radius: 10px;
     padding: 11px 14px;
     color: #2A2118;
+    outline: none;
 }
 QRadioButton:checked { border: 1px solid #D9822B; background: #FFF6EA; }
+
+/* сам кружок индикатора (без него на Windows кружок пропадает) */
+QRadioButton::indicator {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #E2C79A;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+QRadioButton::indicator:checked {
+    border: 2px solid #D9822B;
+    background: #D9822B;
+}
 
 /* ===== Кнопки меню (маркер слева, текст по левому краю) ===== */
 QPushButton#menu {
