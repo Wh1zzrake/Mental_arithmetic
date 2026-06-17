@@ -25,7 +25,7 @@ class MenuScreen(BackgroundWidget):
 
         greet_box = QVBoxLayout()
         greet_box.setSpacing(2)
-        self.greeting = QLabel("Здравствуйте!")
+        self.greeting = QLabel("Здравствуйте! ")
         self.greeting.setObjectName("greeting")
         subtitle = QLabel("Выберите раздел")
         subtitle.setObjectName("subtitle")
@@ -145,7 +145,7 @@ class MenuScreen(BackgroundWidget):
     def refresh(self):
         user = self.main.current_user
         name = user.get("username", "") if isinstance(user, dict) else ""
-        self.greeting.setText(f"Здравствуйте, {name}" if name else "Здравствуйте!")
+        self.greeting.setText(f"Здравствуйте, {name}" if name else "Здравствуйте, kolya733")
 
     def logout(self):
         self.overlay.hide()
