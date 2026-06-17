@@ -1,9 +1,9 @@
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout,
                              QLabel, QPushButton)
 from PyQt6.QtCore import Qt
+from background import BackgroundWidget
 
-
-class ResultScreen(QWidget):
+class ResultScreen(BackgroundWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window

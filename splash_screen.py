@@ -3,9 +3,9 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout,
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPainter, QColor, QFont, QPixmap, QIcon
 from paths import img_path
+from background import BackgroundWidget
 
-
-class SplashScreen(QWidget):
+class SplashScreen(BackgroundWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window

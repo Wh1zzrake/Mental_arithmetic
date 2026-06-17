@@ -3,9 +3,9 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon
 from paths import img_path
+from background import BackgroundWidget
 
-
-class MenuScreen(QWidget):
+class MenuScreen(BackgroundWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window

@@ -81,6 +81,7 @@ QListWidget {
     border: 1px solid #E7DECF;
     border-radius: 10px;
     padding: 4px;
+    outline: none;
 }
 QListWidget::item { padding: 9px 11px; border-radius: 8px; color: #6B5A42; }
 QListWidget::item:selected { background: #D9822B; color: #FFFFFF; }

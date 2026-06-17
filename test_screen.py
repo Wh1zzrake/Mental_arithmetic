@@ -3,12 +3,13 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
 from paths import img_path
+from background import BackgroundWidget
 
 BEAD_EMPTY  = "background:#FFFCF7; border:2px solid #E2C79A; border-radius:8px;"
 BEAD_FILLED = "background:#D9822B; border:2px solid #B4691E; border-radius:8px;"
 
 
-class TestScreen(QWidget):
+class TestScreen(BackgroundWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window
