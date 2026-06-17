@@ -20,15 +20,15 @@ class MenuScreen(BackgroundWidget):
 
         logo = QLabel()
         pix = QPixmap(img_path("logo.png"))
-        pix = pix.scaledToWidth(48, Qt.TransformationMode.SmoothTransformation)
+        pix = pix.scaledToWidth(64, Qt.TransformationMode.SmoothTransformation)
         logo.setPixmap(pix)
 
         greet_box = QVBoxLayout()
         greet_box.setSpacing(2)
         self.greeting = QLabel("Здравствуйте!")
-        self.greeting.setObjectName("h1")
+        self.greeting.setStyleSheet("font-size: 32px; font-weight: 600; color: #2A2118;")
         subtitle = QLabel("Выберите раздел")
-        subtitle.setObjectName("muted")
+        subtitle.setStyleSheet("font-size: 20px; color: #8A7355;")
         greet_box.addWidget(self.greeting)
         greet_box.addWidget(subtitle)
 
@@ -69,23 +69,29 @@ class MenuScreen(BackgroundWidget):
 
         # ----- кнопка «Выход» во всю ширину -----
         quit_btn = QPushButton("Выход")
+        quit_btn.setStyleSheet(
+            "QPushButton{background:#FFFFFF; color:#2A2118; border:1px solid #E7DECF;"
+            "border-radius:10px; padding:12px 14px; font-size:24px; font-weight:400;}"
+            "QPushButton:hover{background:#FBF4E9;}"
+            "QPushButton:pressed{background:#F3E9D8;}"
+        )
         quit_btn.setIcon(QIcon(img_path("icon_power.png")))
-        quit_btn.setIconSize(QSize(18, 18))
+        quit_btn.setIconSize(QSize(22, 22))
         quit_btn.clicked.connect(QApplication.quit)
 
-        layout.addStretch()
+        layout.addStretch(1)            # сверху отступ меньше — блок поднят выше центра
         layout.addLayout(header)
         layout.addSpacing(4)
         layout.addLayout(grid)
         layout.addWidget(quit_btn)
-        layout.addStretch()
+        layout.addStretch(2)            # снизу больше
 
     # создаёт кнопку меню с маркером-иконкой слева (чтобы не повторять код 6 раз)
     def _menu_button(self, text, icon_name, accent=False):
         btn = QPushButton(text)
         btn.setObjectName("menuAccent" if accent else "menu")
         btn.setIcon(QIcon(img_path(icon_name)))
-        btn.setIconSize(QSize(26, 26))
+        btn.setIconSize(QSize(34, 34))
         return btn
 
     # обновляет приветствие именем вошедшего пользователя

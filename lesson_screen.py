@@ -36,10 +36,13 @@ class LessonScreen(QWidget):
         right.setSpacing(11)
 
         self.topic_lesson_no = QLabel("Урок")
-        self.topic_lesson_no.setObjectName("chip")
+        self.topic_lesson_no.setStyleSheet(
+            "background:#FBEFD9; color:#9A5E12; border-radius:12px;"
+            "padding:6px 13px; font-weight:700; font-size:22px;"
+        )
 
         self.topic_title = QLabel("Название темы")
-        self.topic_title.setObjectName("h2")
+        self.topic_title.setStyleSheet("font-size:24px; font-weight:700; color:#2A2118;")
 
         self.topic_theory = QLabel("Текст приёма…")
         self.topic_theory.setObjectName("theory")
@@ -78,6 +81,12 @@ class LessonScreen(QWidget):
         columns.addWidget(scroll)
 
         back_btn = QPushButton("←  В главное меню")
+        back_btn.setStyleSheet(
+            "QPushButton{background:#FFFFFF; color:#2A2118; border:1px solid #E7DECF;"
+            "border-radius:10px; padding:11px 15px; font-size:24px; font-weight:400;}"
+            "QPushButton:hover{background:#FBF4E9;}"
+            "QPushButton:pressed{background:#F3E9D8;}"
+        )
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
 
         # кладём кнопку в строку и прижимаем влево (не на всю ширину)

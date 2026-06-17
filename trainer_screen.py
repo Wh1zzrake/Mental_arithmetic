@@ -1,7 +1,9 @@
 # trainer_screen.py
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
                              QLabel, QLineEdit, QPushButton, QFrame)
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtGui import QIcon
+from paths import img_path
 
 
 # ---------- список тренажёров ----------
@@ -15,7 +17,7 @@ class TrainerListScreen(QWidget):
         layout.setSpacing(16)
 
         title = QLabel("Выберите тип задания")
-        title.setObjectName("h1")
+        title.setStyleSheet("font-size:32px; font-weight:400; color:#2A2118;")
 
         # ----- сетка карточек: 2 колонки -----
         grid = QGridLayout()
@@ -36,13 +38,28 @@ class TrainerListScreen(QWidget):
         for i, (marker, label, key) in enumerate(task_types):
             grid.addWidget(self._task_btn(marker, label, key), i // 2, i % 2)
 
-        # акцентная кнопка «Вперемешку» во всю ширину
-        mix_btn = QPushButton("⇄   Вперемешку")
-        mix_btn.setObjectName("accent")
+        # акцентная кнопка «Вперемешку» во всю ширину — шрифт 24, иконка-перемешка
+        mix_btn = QPushButton("Вперемешку")
+        mix_btn.setStyleSheet(
+            "QPushButton{background:#D9822B; color:#FFFFFF; border:none;"
+            "border-radius:10px; padding:11px 15px; font-size:24px; font-weight:400;}"
+            "QPushButton:hover{background:#C0731F;}"
+            "QPushButton:pressed{background:#A8631A;}"
+        )
+        mix_btn.setIcon(QIcon(img_path("icon_shuffle.png")))
+        mix_btn.setIconSize(QSize(24, 24))
         mix_btn.clicked.connect(lambda: self._open("mix"))
 
-        # контурная кнопка «В главное меню» во всю ширину
-        back_btn = QPushButton("←  В главное меню")
+        # контурная кнопка «В главное меню» во всю ширину — шрифт 24, иконка-стрелка
+        back_btn = QPushButton("В главное меню")
+        back_btn.setStyleSheet(
+            "QPushButton{background:#FFFFFF; color:#2A2118; border:1px solid #E7DECF;"
+            "border-radius:10px; padding:11px 15px; font-size:24px; font-weight:400;}"
+            "QPushButton:hover{background:#FBF4E9;}"
+            "QPushButton:pressed{background:#F3E9D8;}"
+        )
+        back_btn.setIcon(QIcon(img_path("icon_back.png")))
+        back_btn.setIconSize(QSize(24, 24))
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
 
         layout.addStretch()            # отступ сверху — центрируем блок по вертикали
@@ -82,7 +99,7 @@ class TrainerListScreen(QWidget):
 
         lbl = QLabel(label)
         lbl.setStyleSheet(
-            "font-size:14px; font-weight:600; color:#2A2118;"
+            "font-size:24px; font-weight:400; color:#2A2118;"
             "background:transparent; border:none;"
         )
 
@@ -113,18 +130,17 @@ class TrainerWorkScreen(QWidget):
         # ----- верхняя строка: чип с типом (слева) + счётчик (справа) -----
         top_row = QHBoxLayout()
 
-        chip = QFrame()
-        chip.setObjectName("chipFrame")
-        chip_in = QHBoxLayout(chip)
-        chip_in.setContentsMargins(13, 6, 14, 6)
+        # чип с типом тренажёра — скруглённая «таблетка» (как «Урок N» в лекциях)
         self.type_title = QLabel("Тип задания")
-        self.type_title.setObjectName("chipText")
-        chip_in.addWidget(self.type_title)
+        self.type_title.setStyleSheet(
+            "background:#FBEFD9; color:#9A5E12; border-radius:18px;"
+            "padding:7px 16px; font-weight:700; font-size:22px;"
+        )
 
         self.counter = QLabel("Решено 0 · Верно 0")
         self.counter.setObjectName("muted")
 
-        top_row.addWidget(chip)
+        top_row.addWidget(self.type_title)
         top_row.addStretch()
         top_row.addWidget(self.counter)
 

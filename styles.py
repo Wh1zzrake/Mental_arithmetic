@@ -11,10 +11,11 @@ QWidget {
 QLabel { background: transparent; }
 
 /* ===== Заголовки ===== */
+QLabel#display { font-size: 40px; font-weight: 400; color: #2A2118; }  /* самый крупный, не жирный */
 QLabel#h1 { font-size: 24px; font-weight: 800; color: #2A2118; }
 QLabel#h2 { font-size: 18px; font-weight: 700; color: #2A2118; }
 QLabel#muted { color: #8A7355; font-size: 13px; }
-QLabel#theory { color: #6B5A42; font-size: 15px; line-height: 1.6; }
+QLabel#theory { color: #6B5A42; font-size: 22px; line-height: 1.6; }
 
 /* ===== Большое равенство в тренажёре ===== */
 QLabel#equation { font-size: 40px; font-weight: 800; color: #2A2118; }
@@ -73,6 +74,7 @@ QLabel#block {
     background: #FBF4E9;
     border-radius: 12px;
     color: #8A7355;
+    font-size: 22px;
 }
 
 /* ===== Список тем в обучении ===== */
@@ -82,6 +84,7 @@ QListWidget {
     border-radius: 10px;
     padding: 4px;
     outline: none;
+    font-size: 22px;            /* размер задаём самому списку — на ::item не срабатывает */
 }
 QListWidget::item { padding: 9px 11px; border-radius: 8px; color: #6B5A42; }
 QListWidget::item:selected { background: #D9822B; color: #FFFFFF; }
@@ -114,10 +117,14 @@ QRadioButton::indicator:checked {
 QPushButton#menu {
     text-align: left;
     padding: 12px 14px;
+    font-size: 24px;
+    font-weight: 400;
 }
 QPushButton#menuAccent {
     text-align: left;
     padding: 12px 14px;
+    font-size: 24px;
+    font-weight: 400;
     background: #D9822B;
     color: #FFFFFF;
     border: none;
