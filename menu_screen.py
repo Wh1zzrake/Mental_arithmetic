@@ -72,7 +72,7 @@ class MenuScreen(BackgroundWidget):
 
         layout.addStretch(1)            # сверху отступ меньше — блок поднят выше центра
         layout.addLayout(header)
-        layout.addSpacing(6)
+        layout.addSpacing(26)
         layout.addLayout(grid)
         layout.addStretch(2)            # снизу больше
 
@@ -104,7 +104,7 @@ class MenuScreen(BackgroundWidget):
         card.setFixedWidth(360)
         box = QVBoxLayout(card)
         box.setContentsMargins(22, 22, 22, 22)
-        box.setSpacing(10)
+        box.setSpacing(14)
 
         title = QLabel("Выход")
         title.setObjectName("h2")

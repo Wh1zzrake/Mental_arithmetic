@@ -14,7 +14,7 @@ QLabel { background: transparent; }
 QLabel#display { font-size: 40px; font-weight: 400; color: #2A2118; }  /* самый крупный, не жирный */
 QLabel#h1 { font-size: 24px; font-weight: 800; color: #2A2118; }
 QLabel#h2 { font-size: 18px; font-weight: 700; color: #2A2118; }
-QLabel#muted { color: #8A7355; font-size: 13px; }
+QLabel#muted { color: #8A7355; font-size: 16px; }
 QLabel#theory { color: #6B5A42; font-size: 16px; line-height: 1.6; }
 
 /* ===== Большое равенство в тренажёре ===== */
@@ -142,7 +142,7 @@ QLabel#chip {
 }
 
 /* ===== Надпись «Верно» (зелёный) ===== */
-QLabel#success { color: #1C8A52; font-weight: 700; }
+QLabel#success {font-size: 20px; color: #1C8A52; font-weight: 700; }
 
 /* ===== Таблицы (рейтинг, история тестов) ===== */
 QTableWidget {

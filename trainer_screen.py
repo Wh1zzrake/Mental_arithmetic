@@ -2,7 +2,7 @@
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
                              QLabel, QLineEdit, QPushButton, QFrame)
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPixmap
 from paths import img_path
 from background import BackgroundWidget
 
@@ -133,15 +133,23 @@ class TrainerWorkScreen(BackgroundWidget):
         input_row.addWidget(self.answer_input)
         input_row.addStretch()
 
-        # ----- подпись «Верно / Неверно» (зелёная) -----
+        # ----- подпись «Верно» с зелёной галочкой (иконка + текст в ряд) -----
+        self.feedback_icon = QLabel()
+        pix = QPixmap(img_path("icon_correct.png"))
+        pix = pix.scaledToWidth(20, Qt.TransformationMode.SmoothTransformation)
+        self.feedback_icon.setPixmap(pix)
+
         self.feedback = QLabel("Верно")
         self.feedback.setObjectName("success")
-        self.feedback.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # ----- нижний ряд кнопок: Ответ (шире) + К списку + Меню -----
-        # все три — общие стили (#accentBig оранжевая, #big контурные),
-        buttons_row = QHBoxLayout()
+        feedback_row = QHBoxLayout()
+        feedback_row.setSpacing(6)
+        feedback_row.addStretch()
+        feedback_row.addWidget(self.feedback_icon)
+        feedback_row.addWidget(self.feedback)
+        feedback_row.addStretch()
 
+        # ----- кнопки: «Ответ» крупно сверху, «К списку» + «Меню» в ряд под ним -----
         answer_btn = QPushButton("  Ответ")
         answer_btn.setObjectName("accentBig")
         answer_btn.setIcon(QIcon(img_path("icon_check.png")))   # белая галочка
@@ -159,19 +167,47 @@ class TrainerWorkScreen(BackgroundWidget):
         menu_btn.setIconSize(QSize(22, 22))
         menu_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
 
-        buttons_row.addWidget(answer_btn, 2)
-        buttons_row.addWidget(list_btn, 1)
-        buttons_row.addWidget(menu_btn, 1)
+        # второстепенные кнопки — в один ряд
+        secondary_row = QHBoxLayout()
+        secondary_row.setSpacing(11)
+        secondary_row.addWidget(list_btn)
+        secondary_row.addWidget(menu_btn)
 
+        # колонка кнопок: «Ответ» сверху во всю ширину, под ним два второстепенных
+        btn_col = QVBoxLayout()
+        btn_col.setSpacing(11)
+        btn_col.addWidget(answer_btn)
+        btn_col.addLayout(secondary_row)
+
+        # обёртка фиксированной ширины 440 — кнопки по центру, как поле ввода
+        btn_box = QWidget()
+        btn_box.setFixedWidth(440)
+        btn_box.setLayout(btn_col)
+        btn_wrap = QHBoxLayout()
+        btn_wrap.addStretch()
+        btn_wrap.addWidget(btn_box)
+        btn_wrap.addStretch()
+
+        # ----- сборка: весь блок по центру, низ свободен для водяных знаков -----
         layout.addLayout(top_row)
         layout.addStretch()
         layout.addWidget(self.task)
         layout.addLayout(input_row)
-        layout.addWidget(self.feedback)
-        layout.addStretch()
-        layout.addLayout(buttons_row)
-        layout.addSpacing(8)           # лёгкий отступ снизу — кнопки не прижаты к краю
+        layout.addLayout(feedback_row)
+        layout.addSpacing(22)          # отступ от подписи до кнопок
+        layout.addLayout(btn_wrap)
+        layout.addStretch()            # пустое место снизу — знаки + − × ÷ видны
 
     def set_kind(self, kind):
-        """Вызывается из списка при выборе типа. Пока заглушка."""
-        self.type_title.setText(kind)
+        """Вызывается из списка при выборе типа — ставит в плашку нормальное название."""
+        labels = {
+            "mult11": "Умножение на 11",
+            "square5": "Квадраты чисел на 5",
+            "percent": "Проценты",
+            "divisibility": "Признаки делимости",
+            "add_sub": "Сложение / вычитание",
+            "mult_5_9_25": "Умножение на 5 / 9 / 25",
+            "mix": "Вперемешку",
+        }
+        # .get(kind, kind): если ключа нет в словаре — покажем как есть
+        self.type_title.setText(labels.get(kind, kind))
