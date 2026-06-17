@@ -20,19 +20,19 @@ class LoginScreen(BackgroundWidget):
         layout = QVBoxLayout(form)
         layout.setSpacing(14)
 
-        # логотип-квадрат (чуть крупнее — 84px)
+        # логотип-квадрат
         logo = QLabel()
         pixmap = QPixmap(img_path("logo.png"))
         pixmap = pixmap.scaledToWidth(84, Qt.TransformationMode.SmoothTransformation)
         logo.setPixmap(pixmap)
         logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # заголовок — уровень display (40px, не жирный)
+        # заголовок
         title = QLabel("Вход в аккаунт")
         title.setObjectName("display")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # поля ввода — крупный стиль #big из styles.py
+        # поля ввода
         self.login_input = QLineEdit()
         self.login_input.setPlaceholderText("Логин")
         self.login_input.setObjectName("big")
@@ -42,14 +42,14 @@ class LoginScreen(BackgroundWidget):
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
         self.password_input.setObjectName("big")
 
-        # кнопка «Войти» — общий стиль #accentBig
+        # кнопка Войти
         enter_btn = QPushButton("Войти")
         enter_btn.setObjectName("accentBig")
         enter_btn.setIcon(QIcon(img_path("icon_login.png")))
         enter_btn.setIconSize(QSize(22, 22))
         enter_btn.clicked.connect(self.do_login)
 
-        # ссылка-текст: серое "Нет аккаунта?" + оранжевое "Зарегистрироваться", шрифт 22
+        # ссылка-текст: серое "Нет аккаунта?" + оранжевое "Зарегистрироваться"
         register_link = QLabel(
             '<span style="color:#8A7355;">Нет аккаунта?</span> '
             '<a href="#" style="color:#D9822B; text-decoration:none;">Зарегистрироваться</a>'

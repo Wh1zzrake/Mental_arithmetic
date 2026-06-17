@@ -15,7 +15,7 @@ class SplashScreen(BackgroundWidget):
         layout.setSpacing(14)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # картинка соробана из файла img/soroban.png
+        # картинка
         soroban = QLabel()
         pixmap = QPixmap(img_path("soroban.png"))
         pixmap = pixmap.scaledToWidth(200, Qt.TransformationMode.SmoothTransformation)

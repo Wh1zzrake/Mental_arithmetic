@@ -15,7 +15,7 @@ QLabel#display { font-size: 40px; font-weight: 400; color: #2A2118; }  /* сам
 QLabel#h1 { font-size: 24px; font-weight: 800; color: #2A2118; }
 QLabel#h2 { font-size: 18px; font-weight: 700; color: #2A2118; }
 QLabel#muted { color: #8A7355; font-size: 13px; }
-QLabel#theory { color: #6B5A42; font-size: 22px; line-height: 1.6; }
+QLabel#theory { color: #6B5A42; font-size: 16px; line-height: 1.6; }
 
 /* ===== Большое равенство в тренажёре ===== */
 QLabel#equation { font-size: 40px; font-weight: 800; color: #2A2118; }
@@ -74,7 +74,7 @@ QLabel#block {
     background: #FBF4E9;
     border-radius: 12px;
     color: #8A7355;
-    font-size: 22px;
+    font-size: 16px;
 }
 
 /* ===== Список тем в обучении ===== */
@@ -84,7 +84,7 @@ QListWidget {
     border-radius: 10px;
     padding: 4px;
     outline: none;
-    font-size: 22px;            /* размер задаём самому списку — на ::item не срабатывает */
+    font-size: 18px;           
 }
 QListWidget::item { padding: 9px 11px; border-radius: 8px; color: #6B5A42; }
 QListWidget::item:selected { background: #D9822B; color: #FFFFFF; }
@@ -171,14 +171,6 @@ QScrollBar::handle:vertical:hover { background: #D9822B; }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
 
-/* =====================================================================
-   КРУПНЫЕ ВАРИАНТЫ (шрифт 24) — общие для большинства экранов.
-   Раньше эти стили дублировались в каждом экране через setStyleSheet,
-   теперь они здесь — в коде экрана достаточно setObjectName(...).
-   Рамку/фон/скругление «крупные» берут от базовых правил выше,
-   меняется только размер шрифта.
-   ===================================================================== */
-
 /* акцент-кнопка покрупнее (главное действие экрана) */
 QPushButton#accentBig {
     background: #D9822B; color: #FFFFFF; border: none;
@@ -196,7 +188,7 @@ QLineEdit#big { font-size: 24px; }
 
 /* ===== Заголовки экранов и подписи ===== */
 QLabel#sectionTitle { font-size: 32px; font-weight: 400; color: #2A2118; }  /* «Выберите тип задания» */
-QLabel#greeting     { font-size: 32px; font-weight: 600; color: #2A2118; }  /* «Здравствуйте, …» */
+QLabel#greeting     { font-size: 32px; font-weight: 500; color: #2A2118; }  /* «Здравствуйте, …» */
 QLabel#lessonTitle  { font-size: 24px; font-weight: 700; color: #2A2118; }  /* название темы в лекции */
 QLabel#subtitle     { font-size: 20px; color: #8A7355; }                    /* подпись под заголовком, автор */
 

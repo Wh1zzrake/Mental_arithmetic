@@ -27,7 +27,7 @@ class LessonScreen(QWidget):
         self.topics.setFixedWidth(260)
         self.topics.setWordWrap(True)  # длинные названия переносятся на 2 строки
         self.topics.setHorizontalScrollBarPolicy(
-            Qt.ScrollBarPolicy.ScrollBarAlwaysOff)  # убрать нижнюю полосу прокрутки
+            Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         # как только выбрали другую строку — обновим правую часть
         self.topics.currentRowChanged.connect(self.show_lesson)
 

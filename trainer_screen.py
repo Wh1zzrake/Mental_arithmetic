@@ -140,7 +140,6 @@ class TrainerWorkScreen(QWidget):
 
         # ----- нижний ряд кнопок: Ответ (шире) + К списку + Меню -----
         # все три — общие стили (#accentBig оранжевая, #big контурные),
-        # иконки берём из уже готовых ассетов в img/
         buttons_row = QHBoxLayout()
 
         answer_btn = QPushButton("Ответ")

@@ -63,7 +63,7 @@ class RegisterScreen(BackgroundWidget):
         back_btn.clicked.connect(self.go_back)
 
         buttons_row.addWidget(register_btn)
-        buttons_row.addWidget(back_btn, 1)   # stretch=1 — «Назад» растягивается до правого края
+        buttons_row.addWidget(back_btn, 1)
 
         layout.addWidget(title)
         layout.addSpacing(6)
