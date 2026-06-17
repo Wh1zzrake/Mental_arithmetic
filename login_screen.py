@@ -43,7 +43,7 @@ class LoginScreen(BackgroundWidget):
         self.password_input.setObjectName("big")
 
         # кнопка Войти
-        enter_btn = QPushButton("Войти")
+        enter_btn = QPushButton("  Войти")
         enter_btn.setObjectName("accentBig")
         enter_btn.setIcon(QIcon(img_path("icon_login.png")))
         enter_btn.setIconSize(QSize(22, 22))

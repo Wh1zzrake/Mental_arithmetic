@@ -1,11 +1,11 @@
 import os
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                              QListWidget, QPushButton, QScrollArea, QFrame)
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtGui import QPixmap, QIcon
 
 from data_loader import load_lessons   # читает data/lessons.json
-from paths import BASE                 # базовая папка проекта (для картинок)
+from paths import BASE, img_path                 # базовая папка проекта (для картинок)
 
 
 class LessonScreen(QWidget):
@@ -77,8 +77,10 @@ class LessonScreen(QWidget):
         columns.addWidget(self.topics)
         columns.addWidget(scroll)
 
-        back_btn = QPushButton("←  В главное меню")
+        back_btn = QPushButton("  В главное меню")
         back_btn.setObjectName("big")
+        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
+        back_btn.setIconSize(QSize(20, 20))
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
 
         # кладём кнопку в строку и прижимаем влево (не на всю ширину)

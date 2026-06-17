@@ -4,10 +4,10 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon
 from paths import img_path
-
+from background import BackgroundWidget
 
 # ---------- список тренажёров ----------
-class TrainerListScreen(QWidget):
+class TrainerListScreen(BackgroundWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window
@@ -39,14 +39,14 @@ class TrainerListScreen(QWidget):
             grid.addWidget(self._task_btn(marker, label, key), i // 2, i % 2)
 
         # акцентная кнопка «Вперемешку» во всю ширину (общий стиль #accentBig)
-        mix_btn = QPushButton("Вперемешку")
+        mix_btn = QPushButton("  Вперемешку")
         mix_btn.setObjectName("accentBig")
         mix_btn.setIcon(QIcon(img_path("icon_shuffle.png")))
         mix_btn.setIconSize(QSize(24, 24))
         mix_btn.clicked.connect(lambda: self._open("mix"))
 
         # контурная кнопка «В главное меню» во всю ширину (общий стиль #big)
-        back_btn = QPushButton("В главное меню")
+        back_btn = QPushButton("  В главное меню")
         back_btn.setObjectName("big")
         back_btn.setIcon(QIcon(img_path("icon_back.png")))
         back_btn.setIconSize(QSize(24, 24))
@@ -95,7 +95,7 @@ class TrainerListScreen(QWidget):
 
 
 # ---------- рабочее окно тренажёра ----------
-class TrainerWorkScreen(QWidget):
+class TrainerWorkScreen(BackgroundWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window
@@ -142,18 +142,18 @@ class TrainerWorkScreen(QWidget):
         # все три — общие стили (#accentBig оранжевая, #big контурные),
         buttons_row = QHBoxLayout()
 
-        answer_btn = QPushButton("Ответ")
+        answer_btn = QPushButton("  Ответ")
         answer_btn.setObjectName("accentBig")
         answer_btn.setIcon(QIcon(img_path("icon_check.png")))   # белая галочка
         answer_btn.setIconSize(QSize(22, 22))
 
-        list_btn = QPushButton("К списку")
+        list_btn = QPushButton("  К списку")
         list_btn.setObjectName("big")
         list_btn.setIcon(QIcon(img_path("icon_list.png")))
         list_btn.setIconSize(QSize(22, 22))
         list_btn.clicked.connect(lambda: self.main.go_to(self.main.trainer_list))
 
-        menu_btn = QPushButton("Меню")
+        menu_btn = QPushButton("  Меню")
         menu_btn.setObjectName("big")
         menu_btn.setIcon(QIcon(img_path("icon_home.png")))
         menu_btn.setIconSize(QSize(22, 22))
@@ -170,6 +170,7 @@ class TrainerWorkScreen(QWidget):
         layout.addWidget(self.feedback)
         layout.addStretch()
         layout.addLayout(buttons_row)
+        layout.addSpacing(8)           # лёгкий отступ снизу — кнопки не прижаты к краю
 
     def set_kind(self, kind):
         """Вызывается из списка при выборе типа. Пока заглушка."""

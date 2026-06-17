@@ -48,14 +48,14 @@ class RegisterScreen(BackgroundWidget):
         buttons_row = QHBoxLayout()
         buttons_row.setSpacing(12)
 
-        register_btn = QPushButton("Зарегистрироваться")
+        register_btn = QPushButton("  Зарегистрироваться")
         register_btn.setObjectName("accentBig")
         register_btn.setMinimumWidth(300)
         register_btn.setIcon(QIcon(img_path("icon_register_white.png")))
         register_btn.setIconSize(QSize(22, 22))
         register_btn.clicked.connect(self.do_register)
 
-        back_btn = QPushButton("Назад")
+        back_btn = QPushButton("  Назад")
         back_btn.setObjectName("big")
         back_btn.setMinimumWidth(150)
         back_btn.setIcon(QIcon(img_path("icon_back.png")))

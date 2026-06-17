@@ -67,8 +67,10 @@ class TestScreen(BackgroundWidget):
         self.options = []
         options_box = QVBoxLayout()
         options_box.setSpacing(10)
-        for i in range(4):
-            rb = QRadioButton("Вариант ответа")
+        # варианты ответа к показанному примеру 47 × 11 = 517 (первый — верный)
+        answers = ["517", "417", "527", "5117"]
+        for i, text in enumerate(answers):
+            rb = QRadioButton(text)
             self.options_group.addButton(rb, i)
             self.options.append(rb)
             options_box.addWidget(rb)
@@ -95,5 +97,6 @@ class TestScreen(BackgroundWidget):
         layout.addWidget(self.question)
         layout.addSpacing(6)
         layout.addLayout(options_box)
-        layout.addStretch()
+        layout.addSpacing(22)          # умеренный отступ от вариантов до кнопок
         layout.addLayout(buttons_row)
+        layout.addStretch()            # свободное место уходит вниз — кнопки не прижаты к краю

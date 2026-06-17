@@ -150,16 +150,20 @@ QTableWidget {
     border: 1px solid #E7DECF;
     border-radius: 10px;
     color: #2A2118;
+    font-size: 16px;                 /* крупнее шрифт данных */
+    gridline-color: #F0E8DA;         /* цвет линий сетки (мягкий, в тон палитре) */
 }
-QTableWidget::item { padding: 6px 8px; border: none; }
+QTableWidget::item { padding: 8px 12px; border: none; }   /* левый отступ 12 — совпадает с заголовком */
 QHeaderView::section {
     background: #FBF4E9;
     color: #8A7355;
     border: none;
     border-bottom: 1px solid #F0E8DA;
-    padding: 8px;
+    padding: 8px 12px;               /* тот же левый отступ 12, что и у данных */
     font-weight: 700;
+    font-size: 16px;                 /* крупнее шрифт заголовков */
 }
+
 QTableCornerButton::section { background: #FBF4E9; border: none; }
 
 /* ===== Полосы прокрутки (тонкие, в тон палитре) ===== */
@@ -181,10 +185,10 @@ QPushButton#accentBig:hover   { background: #C0731F; }
 QPushButton#accentBig:pressed { background: #A8631A; }
 
 /* контурная кнопка покрупнее (рамку и фон берёт от базовой QPushButton) */
-QPushButton#big { font-size: 24px; font-weight: 400; padding: 12px 15px; }
+QPushButton#big { font-size: 20px; font-weight: 400; padding: 12px 15px; }
 
 /* поле ввода покрупнее (остальное — от базовой QLineEdit) */
-QLineEdit#big { font-size: 24px; }
+QLineEdit#big { font-size: 18px; }
 
 /* ===== Заголовки экранов и подписи ===== */
 QLabel#sectionTitle { font-size: 32px; font-weight: 400; color: #2A2118; }  /* «Выберите тип задания» */
@@ -215,6 +219,15 @@ QLabel#checkCircle {
     background: #FBEFD9; color: #D9822B;
     border-radius: 32px; font-size: 30px; font-weight: 800;
 }
+
+/* ===== Полупрозрачное окно выхода (затемнение + карточка) ===== */
+QWidget#overlay { background: rgba(42, 33, 24, 0.45); }
+QFrame#dialogCard {
+    background: #FFFCF7;
+    border: 1px solid #ECE3D5;
+    border-radius: 14px;
+}
+
 """
 
 

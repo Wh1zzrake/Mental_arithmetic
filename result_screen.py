@@ -1,6 +1,8 @@
 from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout,
                              QLabel, QPushButton)
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtGui import QIcon
+from paths import img_path
 from background import BackgroundWidget
 
 class ResultScreen(BackgroundWidget):
@@ -41,8 +43,10 @@ class ResultScreen(BackgroundWidget):
         grade_row.addStretch()
 
         # контурная кнопка «В главное меню» — по центру, по содержимому
-        back_btn = QPushButton("←  В главное меню")
+        back_btn = QPushButton("  В главное меню")
         back_btn.setObjectName("big")
+        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
+        back_btn.setIconSize(QSize(22, 22))
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
         back_row = QHBoxLayout()
         back_row.addStretch()

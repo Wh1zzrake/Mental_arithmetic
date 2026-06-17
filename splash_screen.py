@@ -38,14 +38,14 @@ class SplashScreen(BackgroundWidget):
         buttons_row.setSpacing(12)
         buttons_row.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        login_btn = QPushButton("Вход")
+        login_btn = QPushButton("  Вход")
         login_btn.setObjectName("accentBig")
         login_btn.setFixedSize(230, 70)
         login_btn.setIcon(QIcon(img_path("icon_login.png")))
         login_btn.setIconSize(QSize(22, 22))
         login_btn.clicked.connect(self.open_login)
 
-        register_btn = QPushButton("Регистрация")
+        register_btn = QPushButton("  Регистрация")
         register_btn.setObjectName("big")
         register_btn.setFixedSize(230, 70)
         register_btn.setIcon(QIcon(img_path("icon_register.png")))
