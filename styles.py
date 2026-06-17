@@ -170,6 +170,59 @@ QScrollBar::handle:vertical {
 QScrollBar::handle:vertical:hover { background: #D9822B; }
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
 QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
+
+/* =====================================================================
+   КРУПНЫЕ ВАРИАНТЫ (шрифт 24) — общие для большинства экранов.
+   Раньше эти стили дублировались в каждом экране через setStyleSheet,
+   теперь они здесь — в коде экрана достаточно setObjectName(...).
+   Рамку/фон/скругление «крупные» берут от базовых правил выше,
+   меняется только размер шрифта.
+   ===================================================================== */
+
+/* акцент-кнопка покрупнее (главное действие экрана) */
+QPushButton#accentBig {
+    background: #D9822B; color: #FFFFFF; border: none;
+    border-radius: 10px; padding: 12px 15px;
+    font-size: 24px; font-weight: 400;
+}
+QPushButton#accentBig:hover   { background: #C0731F; }
+QPushButton#accentBig:pressed { background: #A8631A; }
+
+/* контурная кнопка покрупнее (рамку и фон берёт от базовой QPushButton) */
+QPushButton#big { font-size: 24px; font-weight: 400; padding: 12px 15px; }
+
+/* поле ввода покрупнее (остальное — от базовой QLineEdit) */
+QLineEdit#big { font-size: 24px; }
+
+/* ===== Заголовки экранов и подписи ===== */
+QLabel#sectionTitle { font-size: 32px; font-weight: 400; color: #2A2118; }  /* «Выберите тип задания» */
+QLabel#greeting     { font-size: 32px; font-weight: 600; color: #2A2118; }  /* «Здравствуйте, …» */
+QLabel#lessonTitle  { font-size: 24px; font-weight: 700; color: #2A2118; }  /* название темы в лекции */
+QLabel#subtitle     { font-size: 20px; color: #8A7355; }                    /* подпись под заголовком, автор */
+
+/* ===== Чип-плашка покрупнее («Урок N», тип тренажёра) ===== */
+QLabel#chipBig {
+    background: #FBEFD9; color: #9A5E12;
+    border-radius: 18px; padding: 7px 16px;
+    font-weight: 700; font-size: 22px;
+}
+
+/* ===== Карточка-кнопка в списке тренажёров ===== */
+QFrame#taskCard {
+    background: #FFFFFF; border: 1px solid #E7DECF; border-radius: 10px;
+}
+QFrame#taskCard:hover { background: #FBF4E9; }
+QLabel#cardText { font-size: 24px; font-weight: 400; color: #2A2118; }  /* подпись на карточке */
+QLabel#marker {                                                         /* квадратик-маркер со знаком */
+    background: #FBEFD9; color: #C58A2E;
+    border-radius: 7px; font-weight: 700; font-size: 14px;
+}
+
+/* ===== Круглая иконка-галочка на экране результата ===== */
+QLabel#checkCircle {
+    background: #FBEFD9; color: #D9822B;
+    border-radius: 32px; font-size: 30px; font-weight: 800;
+}
 """
 
 

@@ -17,7 +17,7 @@ class TrainerListScreen(QWidget):
         layout.setSpacing(16)
 
         title = QLabel("Выберите тип задания")
-        title.setStyleSheet("font-size:32px; font-weight:400; color:#2A2118;")
+        title.setObjectName("sectionTitle")
 
         # ----- сетка карточек: 2 колонки -----
         grid = QGridLayout()
@@ -38,26 +38,16 @@ class TrainerListScreen(QWidget):
         for i, (marker, label, key) in enumerate(task_types):
             grid.addWidget(self._task_btn(marker, label, key), i // 2, i % 2)
 
-        # акцентная кнопка «Вперемешку» во всю ширину — шрифт 24, иконка-перемешка
+        # акцентная кнопка «Вперемешку» во всю ширину (общий стиль #accentBig)
         mix_btn = QPushButton("Вперемешку")
-        mix_btn.setStyleSheet(
-            "QPushButton{background:#D9822B; color:#FFFFFF; border:none;"
-            "border-radius:10px; padding:11px 15px; font-size:24px; font-weight:400;}"
-            "QPushButton:hover{background:#C0731F;}"
-            "QPushButton:pressed{background:#A8631A;}"
-        )
+        mix_btn.setObjectName("accentBig")
         mix_btn.setIcon(QIcon(img_path("icon_shuffle.png")))
         mix_btn.setIconSize(QSize(24, 24))
         mix_btn.clicked.connect(lambda: self._open("mix"))
 
-        # контурная кнопка «В главное меню» во всю ширину — шрифт 24, иконка-стрелка
+        # контурная кнопка «В главное меню» во всю ширину (общий стиль #big)
         back_btn = QPushButton("В главное меню")
-        back_btn.setStyleSheet(
-            "QPushButton{background:#FFFFFF; color:#2A2118; border:1px solid #E7DECF;"
-            "border-radius:10px; padding:11px 15px; font-size:24px; font-weight:400;}"
-            "QPushButton:hover{background:#FBF4E9;}"
-            "QPushButton:pressed{background:#F3E9D8;}"
-        )
+        back_btn.setObjectName("big")
         back_btn.setIcon(QIcon(img_path("icon_back.png")))
         back_btn.setIconSize(QSize(24, 24))
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
@@ -71,17 +61,10 @@ class TrainerListScreen(QWidget):
 
     def _task_btn(self, marker, label, key):
         """Создаёт одну карточку-кнопку с плашкой-маркером слева."""
-        # QFrame вместо QPushButton — чтобы внутри был горизонтальный ряд
+        # QFrame вместо QPushButton — чтобы внутри был горизонтальный ряд.
+        # Стиль карточки (#taskCard) и подписи (#cardText/#marker) — в styles.py
         frame = QFrame()
         frame.setObjectName("taskCard")
-        frame.setStyleSheet("""
-            QFrame#taskCard {
-                background: #FFFFFF;
-                border: 1px solid #E7DECF;
-                border-radius: 10px;
-            }
-            QFrame#taskCard:hover { background: #FBF4E9; }
-        """)
         frame.setCursor(Qt.CursorShape.PointingHandCursor)
 
         row = QHBoxLayout(frame)
@@ -90,18 +73,12 @@ class TrainerListScreen(QWidget):
 
         # плашка-маркер со знаком (квадратик 28×28)
         m = QLabel(marker)
+        m.setObjectName("marker")
         m.setFixedSize(28, 28)
         m.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        m.setStyleSheet(
-            "background:#FBEFD9; border-radius:7px;"
-            "font-size:14px; font-weight:700; color:#C58A2E; border:none;"
-        )
 
         lbl = QLabel(label)
-        lbl.setStyleSheet(
-            "font-size:24px; font-weight:400; color:#2A2118;"
-            "background:transparent; border:none;"
-        )
+        lbl.setObjectName("cardText")
 
         row.addWidget(m)
         row.addWidget(lbl)
@@ -130,12 +107,9 @@ class TrainerWorkScreen(QWidget):
         # ----- верхняя строка: чип с типом (слева) + счётчик (справа) -----
         top_row = QHBoxLayout()
 
-        # чип с типом тренажёра — скруглённая «таблетка» (как «Урок N» в лекциях)
+        # чип с типом тренажёра — та же «таблетка», что «Урок N» в лекциях (#chipBig)
         self.type_title = QLabel("Тип задания")
-        self.type_title.setStyleSheet(
-            "background:#FBEFD9; color:#9A5E12; border-radius:18px;"
-            "padding:7px 16px; font-weight:700; font-size:22px;"
-        )
+        self.type_title.setObjectName("chipBig")
 
         self.counter = QLabel("Решено 0 · Верно 0")
         self.counter.setObjectName("muted")
@@ -165,13 +139,27 @@ class TrainerWorkScreen(QWidget):
         self.feedback.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # ----- нижний ряд кнопок: Ответ (шире) + К списку + Меню -----
+        # все три — общие стили (#accentBig оранжевая, #big контурные),
+        # иконки берём из уже готовых ассетов в img/
         buttons_row = QHBoxLayout()
-        answer_btn = QPushButton("✓  Ответ")
-        answer_btn.setObjectName("accent")
+
+        answer_btn = QPushButton("Ответ")
+        answer_btn.setObjectName("accentBig")
+        answer_btn.setIcon(QIcon(img_path("icon_check.png")))   # белая галочка
+        answer_btn.setIconSize(QSize(22, 22))
+
         list_btn = QPushButton("К списку")
+        list_btn.setObjectName("big")
+        list_btn.setIcon(QIcon(img_path("icon_list.png")))
+        list_btn.setIconSize(QSize(22, 22))
         list_btn.clicked.connect(lambda: self.main.go_to(self.main.trainer_list))
+
         menu_btn = QPushButton("Меню")
+        menu_btn.setObjectName("big")
+        menu_btn.setIcon(QIcon(img_path("icon_home.png")))
+        menu_btn.setIconSize(QSize(22, 22))
         menu_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
+
         buttons_row.addWidget(answer_btn, 2)
         buttons_row.addWidget(list_btn, 1)
         buttons_row.addWidget(menu_btn, 1)

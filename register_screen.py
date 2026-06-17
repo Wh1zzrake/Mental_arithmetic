@@ -26,54 +26,38 @@ class RegisterScreen(BackgroundWidget):
         title.setObjectName("display")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # общий стиль полей ввода со шрифтом 24
-        field_style = (
-            "QLineEdit{background:#FFFFFF; border:1px solid #E7DECF;"
-            "border-radius:10px; padding:11px 14px; color:#2A2118; font-size:24px;}"
-            "QLineEdit:focus{border:1px solid #D9822B;}"
-        )
-
+        # поля ввода — крупный стиль #big из styles.py
         self.login_input = QLineEdit()
         self.login_input.setPlaceholderText("Логин")
-        self.login_input.setStyleSheet(field_style)
+        self.login_input.setObjectName("big")
 
         self.password_input = QLineEdit()
         self.password_input.setPlaceholderText("Пароль")
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
-        self.password_input.setStyleSheet(field_style)
+        self.password_input.setObjectName("big")
 
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Имя")
-        self.name_input.setStyleSheet(field_style)
+        self.name_input.setObjectName("big")
 
         self.group_input = QLineEdit()
         self.group_input.setPlaceholderText("Группа")
-        self.group_input.setStyleSheet(field_style)
+        self.group_input.setObjectName("big")
 
         # кнопки в ряд: «Зарегистрироваться» (широкая) + «Назад» (узкая), шрифт 24
         buttons_row = QHBoxLayout()
         buttons_row.setSpacing(12)
 
         register_btn = QPushButton("Зарегистрироваться")
+        register_btn.setObjectName("accentBig")
         register_btn.setMinimumWidth(300)
-        register_btn.setStyleSheet(
-            "QPushButton{background:#D9822B; color:#FFFFFF; border:none;"
-            "border-radius:10px; padding:11px 15px; font-size:24px; font-weight:400;}"
-            "QPushButton:hover{background:#C0731F;}"
-            "QPushButton:pressed{background:#A8631A;}"
-        )
         register_btn.setIcon(QIcon(img_path("icon_register_white.png")))
         register_btn.setIconSize(QSize(22, 22))
         register_btn.clicked.connect(self.do_register)
 
         back_btn = QPushButton("Назад")
+        back_btn.setObjectName("big")
         back_btn.setMinimumWidth(150)
-        back_btn.setStyleSheet(
-            "QPushButton{background:#FFFFFF; color:#2A2118; border:1px solid #E7DECF;"
-            "border-radius:10px; padding:11px 15px; font-size:24px; font-weight:400;}"
-            "QPushButton:hover{background:#FBF4E9;}"
-            "QPushButton:pressed{background:#F3E9D8;}"
-        )
         back_btn.setIcon(QIcon(img_path("icon_back.png")))
         back_btn.setIconSize(QSize(22, 22))
         back_btn.clicked.connect(self.go_back)

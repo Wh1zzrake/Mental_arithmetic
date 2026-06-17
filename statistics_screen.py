@@ -50,6 +50,7 @@ class OverallStatsScreen(QWidget):
 
         # кнопка «В главное меню» — слева, по содержимому (не на всю ширину)
         back_btn = QPushButton("←  В главное меню")
+        back_btn.setObjectName("big")
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
         back_row = QHBoxLayout()
         back_row.addWidget(back_btn)
@@ -95,6 +96,7 @@ class PersonalStatsScreen(QWidget):
         clean_table(self.history)
 
         back_btn = QPushButton("←  В главное меню")
+        back_btn.setObjectName("big")
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
         back_row = QHBoxLayout()
         back_row.addWidget(back_btn)

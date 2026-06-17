@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
+from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel,
                              QRadioButton, QButtonGroup, QPushButton, QFrame)
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
@@ -77,12 +77,13 @@ class TestScreen(BackgroundWidget):
         buttons_row = QHBoxLayout()
 
         self.next_btn = QPushButton("→  Далее")
-        self.next_btn.setObjectName("accent")
+        self.next_btn.setObjectName("accentBig")
         self.next_btn.setMinimumWidth(300)
         # пока что «Далее» сразу открывает экран результата
         self.next_btn.clicked.connect(lambda: self.main.go_to(self.main.result))
 
         menu_btn = QPushButton("×  В меню")
+        menu_btn.setObjectName("big")
         menu_btn.setMinimumWidth(150)
         menu_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
 

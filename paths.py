@@ -12,7 +12,3 @@ def data_path(name):
 
 def img_path(name):
     return os.path.join(BASE, "img", name)
-
-
-def results_path():
-    return os.path.join(BASE, "results.txt")

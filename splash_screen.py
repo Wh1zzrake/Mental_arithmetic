@@ -27,38 +27,27 @@ class SplashScreen(BackgroundWidget):
         title.setObjectName("display")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # подпись под заголовком — шрифт 20
+        # подпись под заголовком (стиль #subtitle из styles.py)
         subtitle = QLabel("Ментальная арифметика — считай в уме как на счётах")
-        subtitle.setStyleSheet("font-size: 20px; color: #8A7355;")
+        subtitle.setObjectName("subtitle")
         subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # две кнопки в ряд (с иконками), размер 230×70
+        # две кнопки в ряд (с иконками), размер 230×70.
+        # стиль — общий из styles.py (#accentBig / #big), здесь только размер и иконка
         buttons_row = QHBoxLayout()
         buttons_row.setSpacing(12)
         buttons_row.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # стиль пишем кнопке целиком (фон + шрифт 24): если задать
-        # только font-size, Qt теряет фон, поэтому перечисляем всё сразу
         login_btn = QPushButton("Вход")
+        login_btn.setObjectName("accentBig")
         login_btn.setFixedSize(230, 70)
-        login_btn.setStyleSheet(
-            "QPushButton{background:#D9822B; color:#FFFFFF; border:none;"
-            "border-radius:10px; font-size:24px; font-weight:400;}"
-            "QPushButton:hover{background:#C0731F;}"
-            "QPushButton:pressed{background:#A8631A;}"
-        )
         login_btn.setIcon(QIcon(img_path("icon_login.png")))
         login_btn.setIconSize(QSize(22, 22))
         login_btn.clicked.connect(self.open_login)
 
         register_btn = QPushButton("Регистрация")
+        register_btn.setObjectName("big")
         register_btn.setFixedSize(230, 70)
-        register_btn.setStyleSheet(
-            "QPushButton{background:#FFFFFF; color:#2A2118; border:1px solid #E7DECF;"
-            "border-radius:10px; font-size:24px; font-weight:400;}"
-            "QPushButton:hover{background:#FBF4E9;}"
-            "QPushButton:pressed{background:#F3E9D8;}"
-        )
         register_btn.setIcon(QIcon(img_path("icon_register.png")))
         register_btn.setIconSize(QSize(22, 22))
         register_btn.clicked.connect(self.open_register)
@@ -66,9 +55,9 @@ class SplashScreen(BackgroundWidget):
         buttons_row.addWidget(login_btn)
         buttons_row.addWidget(register_btn)
 
-        # надпись автора — шрифт 24
+        # надпись автора (тот же приглушённый стиль #subtitle)
         author = QLabel("Автор: Щипер Н., группа С422")
-        author.setStyleSheet("font-size: 24px; color: #8A7355;")
+        author.setObjectName("subtitle")
         author.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         layout.addWidget(soroban)

@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout,
+from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout,
                              QLabel, QPushButton)
 from PyQt6.QtCore import Qt
 from background import BackgroundWidget
@@ -13,14 +13,11 @@ class ResultScreen(BackgroundWidget):
         layout.setSpacing(16)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # круглая иконка-галочка сверху (как в мокапе)
+        # круглая иконка-галочка сверху (стиль #checkCircle из styles.py)
         check = QLabel("✓")
+        check.setObjectName("checkCircle")
         check.setFixedSize(64, 64)
         check.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        check.setStyleSheet(
-            "background:#FBEFD9; border-radius:32px;"
-            "color:#D9822B; font-size:30px; font-weight:800;"
-        )
         check_row = QHBoxLayout()
         check_row.addStretch()
         check_row.addWidget(check)
@@ -45,6 +42,7 @@ class ResultScreen(BackgroundWidget):
 
         # контурная кнопка «В главное меню» — по центру, по содержимому
         back_btn = QPushButton("←  В главное меню")
+        back_btn.setObjectName("big")
         back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
         back_row = QHBoxLayout()
         back_row.addStretch()

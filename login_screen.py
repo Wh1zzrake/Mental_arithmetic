@@ -32,31 +32,19 @@ class LoginScreen(BackgroundWidget):
         title.setObjectName("display")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # общий стиль полей ввода со шрифтом 24 (пишем целиком,
-        # чтобы не потерять рамку и скругление)
-        field_style = (
-            "QLineEdit{background:#FFFFFF; border:1px solid #E7DECF;"
-            "border-radius:10px; padding:11px 14px; color:#2A2118; font-size:24px;}"
-            "QLineEdit:focus{border:1px solid #D9822B;}"
-        )
-
+        # поля ввода — крупный стиль #big из styles.py
         self.login_input = QLineEdit()
         self.login_input.setPlaceholderText("Логин")
-        self.login_input.setStyleSheet(field_style)
+        self.login_input.setObjectName("big")
 
         self.password_input = QLineEdit()
         self.password_input.setPlaceholderText("Пароль")
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
-        self.password_input.setStyleSheet(field_style)
+        self.password_input.setObjectName("big")
 
-        # кнопка «Войти» — шрифт 24, стиль целиком (фон + шрифт)
+        # кнопка «Войти» — общий стиль #accentBig
         enter_btn = QPushButton("Войти")
-        enter_btn.setStyleSheet(
-            "QPushButton{background:#D9822B; color:#FFFFFF; border:none;"
-            "border-radius:10px; padding:11px 15px; font-size:24px; font-weight:400;}"
-            "QPushButton:hover{background:#C0731F;}"
-            "QPushButton:pressed{background:#A8631A;}"
-        )
+        enter_btn.setObjectName("accentBig")
         enter_btn.setIcon(QIcon(img_path("icon_login.png")))
         enter_btn.setIconSize(QSize(22, 22))
         enter_btn.clicked.connect(self.do_login)

@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
+from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QGridLayout,
                              QLabel, QPushButton, QApplication)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon
@@ -26,9 +26,9 @@ class MenuScreen(BackgroundWidget):
         greet_box = QVBoxLayout()
         greet_box.setSpacing(2)
         self.greeting = QLabel("Здравствуйте!")
-        self.greeting.setStyleSheet("font-size: 32px; font-weight: 600; color: #2A2118;")
+        self.greeting.setObjectName("greeting")
         subtitle = QLabel("Выберите раздел")
-        subtitle.setStyleSheet("font-size: 20px; color: #8A7355;")
+        subtitle.setObjectName("subtitle")
         greet_box.addWidget(self.greeting)
         greet_box.addWidget(subtitle)
 
@@ -67,14 +67,9 @@ class MenuScreen(BackgroundWidget):
         grid.addWidget(personal_btn, 2, 0)
         grid.addWidget(logout_btn,   2, 1)
 
-        # ----- кнопка «Выход» во всю ширину -----
+        # ----- кнопка «Выход» во всю ширину (общий стиль #big) -----
         quit_btn = QPushButton("Выход")
-        quit_btn.setStyleSheet(
-            "QPushButton{background:#FFFFFF; color:#2A2118; border:1px solid #E7DECF;"
-            "border-radius:10px; padding:12px 14px; font-size:24px; font-weight:400;}"
-            "QPushButton:hover{background:#FBF4E9;}"
-            "QPushButton:pressed{background:#F3E9D8;}"
-        )
+        quit_btn.setObjectName("big")
         quit_btn.setIcon(QIcon(img_path("icon_power.png")))
         quit_btn.setIconSize(QSize(22, 22))
         quit_btn.clicked.connect(QApplication.quit)
