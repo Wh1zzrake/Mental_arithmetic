@@ -6,6 +6,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 from paths import img_path
 from background import BackgroundWidget
 import generators                      # генераторы заданий (text, answer)
+import stats                           # сохранение итога сессии в статистику
 
 # ---------- список тренажёров ----------
 class TrainerListScreen(BackgroundWidget):
@@ -151,13 +152,13 @@ class TrainerWorkScreen(BackgroundWidget):
         list_btn.setObjectName("big")
         list_btn.setIcon(QIcon(img_path("icon_list.png")))
         list_btn.setIconSize(QSize(22, 22))
-        list_btn.clicked.connect(lambda: self.main.go_to(self.main.trainer_list))
+        list_btn.clicked.connect(self.go_to_list)               # сохранить сессию и к списку
 
         menu_btn = QPushButton("  Меню")
         menu_btn.setObjectName("big")
         menu_btn.setIcon(QIcon(img_path("icon_home.png")))
         menu_btn.setIconSize(QSize(22, 22))
-        menu_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
+        menu_btn.clicked.connect(self.go_to_menu)               # сохранить сессию и в меню
 
         secondary_row = QHBoxLayout()
         secondary_row.setSpacing(11)
@@ -245,3 +246,23 @@ class TrainerWorkScreen(BackgroundWidget):
 
         self.counter.setText(f"Решено {self.solved} · Верно {self.correct}")
         self.next_task()               # сразу следующее задание
+
+    def save_session(self):
+        """Сохраняет итог сессии (решено / верно) в статистику пользователя.
+        После сохранения обнуляет счётчики, чтобы при повторном входе
+        те же ответы не записались второй раз."""
+        user = self.main.current_user
+        if isinstance(user, dict) and self.solved > 0:
+            stats.record_trainer(user["username"], self.solved, self.correct)
+        self.solved = 0
+        self.correct = 0
+
+    def go_to_list(self):
+        """Кнопка «К списку»: сохранить сессию и вернуться к выбору типа."""
+        self.save_session()
+        self.main.go_to(self.main.trainer_list)
+
+    def go_to_menu(self):
+        """Кнопка «Меню»: сохранить сессию и выйти в главное меню."""
+        self.save_session()
+        self.main.go_to(self.main.menu)

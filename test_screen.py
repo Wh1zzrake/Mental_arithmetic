@@ -7,6 +7,7 @@ from paths import img_path
 from background import BackgroundWidget
 import random
 import results
+import stats
 from data_loader import load_questions
 
 BEAD_EMPTY  = "background:#FFFCF7; border:2px solid #E2C79A; border-radius:8px;"
@@ -191,9 +192,11 @@ class TestScreen(BackgroundWidget):
         self.main.result.percent.setText(f"Правильных ответов {percent}%")
         self.main.result.grade.setText(f"Оценка: {grade_value}")
 
-        # TODO: когда будет stats.py — сохранить результат в статистику:
-        # stats.record_test(self.main.current_user["username"],
-        #                   self.correct, total, percent, grade_value)
+        # сохраняем результат в статистику текущего пользователя
+        user = self.main.current_user
+        if isinstance(user, dict):
+            stats.record_test(user["username"], self.correct, total,
+                              percent, grade_value)
 
         self.main.go_to(self.main.result)
 

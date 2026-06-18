@@ -73,8 +73,8 @@ TASKS = {
     "mult11":       gen_mult_by_11,
     "square5":      gen_square5,
     "percent":      gen_percent,
-    "divisibility": gen_divisible,    # ← ключ, как в экране тренажёра
-    "add_sub":      gen_add_sub,      # ← ключ, как в экране тренажёра
+    "divisibility": gen_divisible,
+    "add_sub":      gen_add_sub,
     "mult_5_9_25":  gen_mult_5_9_25,
 }
 

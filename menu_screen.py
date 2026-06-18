@@ -114,7 +114,7 @@ class MenuScreen(BackgroundWidget):
         logout_btn.setObjectName("big")
         logout_btn.clicked.connect(self.logout)
 
-        quit_btn = QPushButton("Выйти из игры")
+        quit_btn = QPushButton("Выйти из программы")
         quit_btn.setObjectName("accentBig")
         quit_btn.clicked.connect(QApplication.quit)
 

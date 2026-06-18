@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon
 from paths import img_path
+import stats                       # чтение статистики из users.json
 
 
 # делает таблицу «чистой»: без сетки, без нумерации строк, колонки на всю ширину
@@ -29,6 +30,15 @@ def fill_table(table, rows):
             item = QTableWidgetItem(str(value))
             item.setFlags(Qt.ItemFlag.ItemIsEnabled)  # нельзя редактировать/выделять
             table.setItem(r, c, item)
+
+
+# превращает дату из файла '2026-06-08 14:30' в вид '08.06.2026' (как в макете)
+def format_date(date_str):
+    date_part = date_str.split(" ")[0]              # часть до пробела: '2026-06-08'
+    bits = date_part.split("-")                     # ['2026', '06', '08']
+    if len(bits) == 3:
+        return f"{bits[2]}.{bits[1]}.{bits[0]}"     # переставляем: день.месяц.год
+    return date_str                                 # если формат другой — как есть
 
 
 # ---------- общая статистика (рейтинг) ----------
@@ -76,14 +86,47 @@ class OverallStatsScreen(QWidget):
         layout.addWidget(self.table)
         layout.addLayout(back_row)
 
-    # вызывается при заходе на экран — заполняет рейтинг
+    # вызывается при заходе на экран — строит рейтинг из реальных данных
     def refresh(self):
-        # --- ЗАГЛУШКА: пока нет реальных пользователей, показываем примерный рейтинг ---
-        rows = [
-            ("1", "Вы", "15 / 15"),
-            ("2", "Пользователь 1", "14 / 15"),
-            ("3", "Пользователь 2", "13 / 15"),
-        ]
+        users = stats.get_all_users()           # все пользователи из users.json
+
+        # логин текущего пользователя — чтобы отметить его строку словом «Вы»
+        me = self.main.current_user
+        my_username = me.get("username", "") if isinstance(me, dict) else ""
+
+        # для каждого пользователя считаем лучший результат теста
+        ranking = []                            # список (лучший_балл, всего, имя_для_показа)
+        for u in users:
+            tests = u.get("tests", [])
+            best_score = 0
+            best_total = 15
+            for t in tests:                     # ищем тест с наибольшим числом верных
+                if t["score"] > best_score:
+                    best_score = t["score"]
+                    best_total = t["total"]
+
+            # как показывать имя: своя строка — «Вы», иначе имя (или логин)
+            if u["username"] == my_username:
+                name = "Вы"
+            else:
+                name = u.get("name") or u["username"]
+
+            ranking.append((best_score, best_total, name))
+
+        # сортируем по лучшему баллу по убыванию (первый кортеж сравнивается первым)
+        ranking.sort(reverse=True)
+
+        # собираем строки таблицы с номерами мест
+        rows = []
+        place = 1
+        for best_score, best_total, name in ranking:
+            if best_score > 0:                  # есть хотя бы один пройденный тест
+                result_text = f"{best_score} / {best_total}"
+            else:
+                result_text = "—"               # тестов ещё не было
+            rows.append((str(place), name, result_text))
+            place += 1
+
         fill_table(self.table, rows)
 
 
@@ -161,26 +204,55 @@ class PersonalStatsScreen(QWidget):
 
     # вызывается при заходе на экран — заполняет шапку, метрики и историю
     def refresh(self):
-        # имя и группа берём из вошедшего пользователя; если входа ещё нет — заглушка
         user = self.main.current_user
-        if isinstance(user, dict):
-            name = user.get("name", "")
-            username = user.get("username", "")
-            group = user.get("group", "")
-            self.user_name.setText(f"{name}: {username}" if name else username)
-            self.user_group.setText(f"Группа {group}")
+        username = user.get("username", "") if isinstance(user, dict) else ""
+
+        # берём СВЕЖИЕ данные из файла (в current_user они могут устареть
+        # после прохождения теста или тренажёра)
+        data = stats.get_stats(username)
+        if data is None:
+            data = user if isinstance(user, dict) else {}
+
+        # шапка: имя и группа
+        name = data.get("name", "")
+        group = data.get("group", "")
+        self.user_name.setText(f"{name}: {username}" if name else username)
+        self.user_group.setText(f"Группа {group}")
+
+        tests = data.get("tests", [])
+        trainer = data.get("trainer", {"solved": 0, "correct": 0})
+
+        # средний и лучший балл по тестам
+        if tests:
+            total_score = 0
+            best = 0
+            for t in tests:
+                total_score += t["score"]
+                if t["score"] > best:
+                    best = t["score"]
+            average = round(total_score / len(tests), 1)   # 1 знак после запятой
+            self.avg_val.setText(str(average))
+            self.best_val.setText(str(best))
         else:
-            self.user_name.setText("Николай: kolya733")
-            self.user_group.setText("Группа С422")
+            self.avg_val.setText("—")
+            self.best_val.setText("—")
 
-        # --- ЗАГЛУШКА: примерные метрики и история (пока нет реальной статистики) ---
-        self.avg_val.setText("11.3")
-        self.best_val.setText("15")
-        self.acc_val.setText("88%")
+        # точность тренажёра = верно / решено * 100
+        solved = trainer.get("solved", 0)
+        correct = trainer.get("correct", 0)
+        if solved > 0:
+            accuracy = round(correct / solved * 100)
+            self.acc_val.setText(f"{accuracy}%")
+        else:
+            self.acc_val.setText("—")
 
-        rows = [
-            ("08.06.2026", "12 / 15", "80%", "4"),
-            ("07.06.2026", "10 / 15", "67%", "3"),
-            ("06.06.2026", "15 / 15", "100%", "5"),
-        ]
+        # история тестов — новые сверху (поэтому reversed)
+        rows = []
+        for t in reversed(tests):
+            rows.append((
+                format_date(t["date"]),
+                f'{t["score"]} / {t["total"]}',
+                f'{t["percent"]}%',
+                str(t["grade"]),
+            ))
         fill_table(self.history, rows)
