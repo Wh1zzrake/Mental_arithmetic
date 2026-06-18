@@ -1,32 +1,29 @@
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout,
-                             QLabel, QLineEdit, QPushButton)
+                             QLabel, QLineEdit, QPushButton, QMessageBox)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon
 from paths import img_path
 from background import BackgroundWidget
+import auth
 
 class RegisterScreen(BackgroundWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window
 
-        # внешний слой — центрирует форму по окну
         outer = QVBoxLayout(self)
         outer.setContentsMargins(26, 26, 26, 26)
         outer.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # сама форма фиксированной ширины
         form = QWidget()
         form.setFixedWidth(560)
         layout = QVBoxLayout(form)
         layout.setSpacing(14)
 
-        # заголовок — уровень display (40px, не жирный)
         title = QLabel("Создать аккаунт")
         title.setObjectName("display")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # поля ввода — крупный стиль #big из styles.py
         self.login_input = QLineEdit()
         self.login_input.setPlaceholderText("Логин")
         self.login_input.setObjectName("big")
@@ -44,7 +41,6 @@ class RegisterScreen(BackgroundWidget):
         self.group_input.setPlaceholderText("Группа")
         self.group_input.setObjectName("big")
 
-        # кнопки в ряд: «Зарегистрироваться» (широкая) + «Назад» (узкая), шрифт 24
         buttons_row = QHBoxLayout()
         buttons_row.setSpacing(12)
 
@@ -76,7 +72,27 @@ class RegisterScreen(BackgroundWidget):
         outer.addWidget(form)
 
     def do_register(self):
-        # логика регистрации + авто-вход добавляется позже
+        username = self.login_input.text().strip()
+        password = self.password_input.text()
+        name = self.name_input.text().strip()
+        group = self.group_input.text().strip()
+
+        # все поля обязательны
+        if username == "" or password == "" or name == "" or group == "":
+            QMessageBox.warning(self, "Регистрация", "Заполните все поля.")
+            return
+
+        user = auth.register(username, password, name, group)
+        if user is None:
+            QMessageBox.warning(self, "Регистрация", "Такой логин уже занят.")
+            return
+
+        # успех: сразу логиним нового пользователя и ведём в меню (вариант Б)
+        self.main.current_user = user
+        self.login_input.clear()
+        self.password_input.clear()
+        self.name_input.clear()
+        self.group_input.clear()
         self.main.go_to(self.main.menu)
 
     def go_back(self):

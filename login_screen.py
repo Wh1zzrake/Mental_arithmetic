@@ -1,38 +1,35 @@
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton)
+from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QLabel, QLineEdit,
+                             QPushButton, QMessageBox)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon
 from paths import img_path
 from background import BackgroundWidget
+import auth
 
 class LoginScreen(BackgroundWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window
 
-        # внешний слой — центрирует форму по окну
         outer = QVBoxLayout(self)
         outer.setContentsMargins(26, 26, 26, 26)
         outer.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # сама форма фиксированной ширины
         form = QWidget()
         form.setFixedWidth(560)
         layout = QVBoxLayout(form)
         layout.setSpacing(14)
 
-        # логотип-квадрат
         logo = QLabel()
         pixmap = QPixmap(img_path("logo.png"))
         pixmap = pixmap.scaledToWidth(84, Qt.TransformationMode.SmoothTransformation)
         logo.setPixmap(pixmap)
         logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # заголовок
         title = QLabel("Вход в аккаунт")
         title.setObjectName("display")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # поля ввода
         self.login_input = QLineEdit()
         self.login_input.setPlaceholderText("Логин")
         self.login_input.setObjectName("big")
@@ -41,15 +38,14 @@ class LoginScreen(BackgroundWidget):
         self.password_input.setPlaceholderText("Пароль")
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
         self.password_input.setObjectName("big")
+        self.password_input.returnPressed.connect(self.do_login)   # Enter = «Войти»
 
-        # кнопка Войти
         enter_btn = QPushButton("  Войти")
         enter_btn.setObjectName("accentBig")
         enter_btn.setIcon(QIcon(img_path("icon_login.png")))
         enter_btn.setIconSize(QSize(22, 22))
         enter_btn.clicked.connect(self.do_login)
 
-        # ссылка-текст: серое "Нет аккаунта?" + оранжевое "Зарегистрироваться"
         register_link = QLabel(
             '<span style="color:#8A7355;">Нет аккаунта?</span> '
             '<a href="#" style="color:#D9822B; text-decoration:none;">Зарегистрироваться</a>'
@@ -69,7 +65,22 @@ class LoginScreen(BackgroundWidget):
         outer.addWidget(form)
 
     def do_login(self):
-        # логика входа добавляется позже
+        username = self.login_input.text().strip()
+        password = self.password_input.text()
+
+        if username == "" or password == "":
+            QMessageBox.warning(self, "Вход", "Введите логин и пароль.")
+            return
+
+        user = auth.check_login(username, password)
+        if user is None:
+            QMessageBox.warning(self, "Вход", "Неверный логин или пароль.")
+            return
+
+        # запоминаем вошедшего и переходим в меню
+        self.main.current_user = user
+        self.login_input.clear()
+        self.password_input.clear()
         self.main.go_to(self.main.menu)
 
     def open_register(self):

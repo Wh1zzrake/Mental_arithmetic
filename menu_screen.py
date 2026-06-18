@@ -145,7 +145,7 @@ class MenuScreen(BackgroundWidget):
     def refresh(self):
         user = self.main.current_user
         name = user.get("username", "") if isinstance(user, dict) else ""
-        self.greeting.setText(f"Здравствуйте, {name}" if name else "Здравствуйте, kolya733")
+        self.greeting.setText(f"Здравствуйте, {name}" if name else "Здравствуйте!")
 
     def logout(self):
         self.overlay.hide()
