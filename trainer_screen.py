@@ -2,7 +2,7 @@
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
                              QLabel, QLineEdit, QPushButton, QFrame)
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtGui import QIcon, QPixmap, QIntValidator
 from paths import img_path
 from background import BackgroundWidget
 import generators                      # генераторы заданий (text, answer)
@@ -121,10 +121,31 @@ class TrainerWorkScreen(BackgroundWidget):
         self.answer_input.setPlaceholderText("ответ")
         self.answer_input.setFixedWidth(360)
         self.answer_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # в поле ответа можно вводить ТОЛЬКО цифры (целое число от 0)
+        self.answer_input.setValidator(QIntValidator(0, 1000000000, self))
         self.answer_input.returnPressed.connect(self.check_answer)   # Enter = «Ответ»
+
+        # кнопки «Да» / «Нет» — показываются ВМЕСТО поля в заданиях на
+        # признаки делимости (там ответ не число, а «да/нет»)
+        self.yes_btn = QPushButton("Да")
+        self.yes_btn.setObjectName("big")
+        self.yes_btn.setFixedWidth(120)
+        self.yes_btn.clicked.connect(lambda: self.submit_answer("да"))
+        self.no_btn = QPushButton("Нет")
+        self.no_btn.setObjectName("big")
+        self.no_btn.setFixedWidth(120)
+        self.no_btn.clicked.connect(lambda: self.submit_answer("нет"))
+        self.yesno_widget = QWidget()
+        yesno_box = QHBoxLayout(self.yesno_widget)
+        yesno_box.setContentsMargins(0, 0, 0, 0)
+        yesno_box.setSpacing(12)
+        yesno_box.addWidget(self.yes_btn)
+        yesno_box.addWidget(self.no_btn)
+
         input_row = QHBoxLayout()
         input_row.addStretch()
         input_row.addWidget(self.answer_input)
+        input_row.addWidget(self.yesno_widget)
         input_row.addStretch()
 
         self.feedback_icon = QLabel()
@@ -142,11 +163,11 @@ class TrainerWorkScreen(BackgroundWidget):
         feedback_row.addWidget(self.feedback)
         feedback_row.addStretch()
 
-        answer_btn = QPushButton("  Ответ")
-        answer_btn.setObjectName("accentBig")
-        answer_btn.setIcon(QIcon(img_path("icon_check.png")))
-        answer_btn.setIconSize(QSize(22, 22))
-        answer_btn.clicked.connect(self.check_answer)                # проверка ответа
+        self.answer_btn = QPushButton("  Ответ")
+        self.answer_btn.setObjectName("accentBig")
+        self.answer_btn.setIcon(QIcon(img_path("icon_check.png")))
+        self.answer_btn.setIconSize(QSize(22, 22))
+        self.answer_btn.clicked.connect(self.check_answer)           # проверка ответа
 
         list_btn = QPushButton("  К списку")
         list_btn.setObjectName("big")
@@ -167,7 +188,7 @@ class TrainerWorkScreen(BackgroundWidget):
 
         btn_col = QVBoxLayout()
         btn_col.setSpacing(11)
-        btn_col.addWidget(answer_btn)
+        btn_col.addWidget(self.answer_btn)
         btn_col.addLayout(secondary_row)
 
         btn_box = QWidget()
@@ -221,20 +242,33 @@ class TrainerWorkScreen(BackgroundWidget):
         # красим «?» в оранжевый, как в макете (QLabel понимает HTML)
         html = text.replace("?", '<span style="color:#D9822B;">?</span>')
         self.task.setText(html)
-        self.answer_input.clear()
-        self.answer_input.setFocus()   # курсор сразу в поле ввода
+
+        # Ответ «да/нет» (признаки делимости) приходит строкой, а число — int.
+        # По типу ответа и выбираем способ: поле для числа или кнопки «Да/Нет».
+        is_yes_no = isinstance(answer, str)
+        self.answer_input.setVisible(not is_yes_no)
+        self.answer_btn.setVisible(not is_yes_no)
+        self.yesno_widget.setVisible(is_yes_no)
+
+        if not is_yes_no:
+            self.answer_input.clear()
+            self.answer_input.setFocus()   # курсор сразу в поле ввода
 
     def check_answer(self):
-        """Проверяет введённый ответ, обновляет счётчик и даёт следующее задание."""
+        """Кнопка «Ответ» / Enter в поле: берём число из поля и проверяем."""
         user = self.answer_input.text().strip()
         if user == "":
             return                     # пустой ответ не засчитываем
+        self.submit_answer(user)
 
+    def submit_answer(self, user_answer):
+        """Общая проверка ответа — и для числа из поля, и для кнопок «Да»/«Нет».
+        Обновляет счётчик и сразу даёт следующее задание."""
         # сравниваем как текст в нижнем регистре —
         # работает и для чисел, и для ответа «да/нет» в делимости
         right = str(self.current_answer).strip().lower()
         self.solved += 1
-        if user.lower() == right:
+        if str(user_answer).strip().lower() == right:
             self.correct += 1
             self.feedback.setText("Верно")
             self.feedback.setStyleSheet("color:#1C8A52; font-weight:600;")

@@ -103,6 +103,15 @@ class LessonScreen(QWidget):
         # сразу выбираем первую тему, чтобы экран не был пустым
         if self.lessons:
             self.topics.setCurrentRow(0)
+        else:
+            # уроки не загрузились (файла нет или он повреждён) —
+            # показываем понятное сообщение вместо пустого экрана
+            self.topic_lesson_no.setText("—")
+            self.topic_title.setText("Уроки не загружены")
+            self.topic_theory.setText("Проверьте файл data/lessons.json.")
+            self.topic_example.setText("")
+            self.topic_image.setPixmap(QPixmap())
+            self.topic_image.setText("[ нет данных ]")
 
     def show_lesson(self, index):
         """Показываем выбранную тему. index — номер строки в списке слева."""

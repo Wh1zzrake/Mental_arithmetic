@@ -113,6 +113,18 @@ class TestScreen(BackgroundWidget):
         """Вызывается автоматически при открытии экрана (через go_to):
         начинает новый тест — 15 случайных вопросов без повторов."""
         all_questions = load_questions()
+
+        # защита: если вопросов не удалось загрузить (файла нет / повреждён)
+        # или их меньше 15 — тест не начинаем, показываем сообщение.
+        # Кнопка «В меню» вернёт на главный экран.
+        if len(all_questions) < 15:
+            self.questions = []
+            self.question.setText("Не удалось загрузить вопросы теста.")
+            QMessageBox.warning(self, "Тест",
+                                "Не удалось загрузить вопросы теста.\n"
+                                "Проверьте файл data/questions.json.")
+            return
+
         self.questions = random.sample(all_questions, 15)
         self.index = 0
         self.correct = 0
@@ -128,6 +140,8 @@ class TestScreen(BackgroundWidget):
 
     def show_question(self):
         """Показывает текущий вопрос: текст, варианты, прогресс, кнопку."""
+        if not self.questions:
+            return                         # вопросы не загрузились — показывать нечего
         q = self.questions[self.index]
 
         # плашка прогресса
@@ -165,6 +179,8 @@ class TestScreen(BackgroundWidget):
 
     def next_question(self):
         """Кнопка «Далее» / «Завершить тест»: проверяем выбор и идём дальше."""
+        if not self.questions:
+            return                         # тест не идёт (вопросы не загрузились)
         chosen = self.options_group.checkedId()   # -1, если ничего не выбрано
         if chosen == -1:
             QMessageBox.information(self, "Тест", "Выберите вариант ответа.")
@@ -202,6 +218,10 @@ class TestScreen(BackgroundWidget):
 
     def interrupt(self):
         """Кнопка «В меню»: прерываем тест с подтверждением; результат не сохраняем."""
+        # если тест не идёт (вопросы не загрузились) — выходим без подтверждения
+        if not self.questions:
+            self.main.go_to(self.main.menu)
+            return
         ans = QMessageBox.question(
             self, "Прервать тест?",
             "Если выйти сейчас, результат не сохранится. Прервать тест?",

@@ -82,6 +82,29 @@ class RegisterScreen(BackgroundWidget):
             QMessageBox.warning(self, "Регистрация", "Заполните все поля.")
             return
 
+        # логин — длина от 3 до 20 символов
+        if len(username) < 3 or len(username) > 20:
+            QMessageBox.warning(self, "Регистрация",
+                                "Логин должен быть от 3 до 20 символов.")
+            return
+
+        # логин — только латинские буквы, цифры и символы _ - .
+        # Проверяем каждый символ; заодно это отсекает пробелы и кириллицу.
+        for c in username:
+            if not (("a" <= c <= "z") or ("A" <= c <= "Z")
+                    or ("0" <= c <= "9") or c in "_-."):
+                QMessageBox.warning(self, "Регистрация",
+                                    "Логин может содержать только латинские "
+                                    "буквы, цифры и символы _ - .")
+                return
+
+        # пароль — не короче 6 символов. Любые символы (буквы, цифры,
+        # спецсимволы, пробелы) разрешены, но ничего из них не обязательно.
+        if len(password) < 6:
+            QMessageBox.warning(self, "Регистрация",
+                                "Пароль должен быть не короче 6 символов.")
+            return
+
         user = auth.register(username, password, name, group)
         if user is None:
             QMessageBox.warning(self, "Регистрация", "Такой логин уже занят.")
