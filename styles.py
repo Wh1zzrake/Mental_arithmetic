@@ -32,15 +32,6 @@ QPushButton {
 QPushButton:hover  { background: #FBF4E9; }
 QPushButton:pressed { background: #F3E9D8; }
 
-/* ===== Акцент-кнопка (главное действие) ===== */
-QPushButton#accent {
-    background: #D9822B;
-    color: #FFFFFF;
-    border: none;
-}
-QPushButton#accent:hover   { background: #C0731F; }
-QPushButton#accent:pressed { background: #A8631A; }
-
 /* ===== Поле ввода ===== */
 QLineEdit {
     background: #FFFFFF;
