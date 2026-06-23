@@ -25,17 +25,17 @@ class ResultScreen(BackgroundWidget):
         check_row.addWidget(check)
         check_row.addStretch()
 
-        # «12 из 15» — слово «из» приглушённого цвета
-        self.score = QLabel('12 <span style="color:#8A7355;">из</span> 15')
+        # счёт «N из 15» (текст задаётся в TestScreen.finish_test)
+        self.score = QLabel("")
         self.score.setObjectName("equation")
         self.score.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.percent = QLabel("Правильных ответов 80%")
+        self.percent = QLabel("")
         self.percent.setObjectName("muted")
         self.percent.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # чип-плашка «Оценка: 4» — в ряду со «растяжками», чтобы была «таблеткой»
-        self.grade = QLabel("Оценка: 4")
+        # чип-плашка «Оценка: N» — в ряду с растяжками, чтобы была «таблеткой»
+        self.grade = QLabel("")
         self.grade.setObjectName("chip")
         grade_row = QHBoxLayout()
         grade_row.addStretch()

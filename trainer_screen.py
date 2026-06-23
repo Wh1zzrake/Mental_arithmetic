@@ -113,7 +113,7 @@ class TrainerWorkScreen(BackgroundWidget):
         top_row.addStretch()
         top_row.addWidget(self.counter)
 
-        self.task = QLabel('35² = <span style="color:#D9822B;">?</span>')
+        self.task = QLabel("")            # текст задания задаётся в next_task
         self.task.setObjectName("equation")
         self.task.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -153,7 +153,7 @@ class TrainerWorkScreen(BackgroundWidget):
         pix = pix.scaledToWidth(20, Qt.TransformationMode.SmoothTransformation)
         self.feedback_icon.setPixmap(pix)
 
-        self.feedback = QLabel("Верно")
+        self.feedback = QLabel(" ")       # подпись «Верно/Неверно» появляется после ответа
         self.feedback.setObjectName("success")
 
         feedback_row = QHBoxLayout()

@@ -67,8 +67,8 @@ class TestScreen(BackgroundWidget):
             self.beads.append(bead)
             beads_row.addWidget(bead)
 
-        # ----- вопрос-равенство ----- («?» — оранжевый, как в мокапе)
-        self.question = QLabel('47 × 11 = <span style="color:#D9822B;">?</span>')
+        # ----- вопрос-равенство ----- (текст задаётся в show_question)
+        self.question = QLabel("")
         self.question.setObjectName("equation")
         self.question.setWordWrap(True)   # длинный текстовый вопрос переносится
 
@@ -77,9 +77,10 @@ class TestScreen(BackgroundWidget):
         self.options = []
         options_box = QVBoxLayout()
         options_box.setSpacing(10)
-        answers = ["517", "417", "527", "5117"]
-        for i, text in enumerate(answers):
-            rb = QRadioButton(text)
+        # создаём 4 пустые радиокнопки (4 — максимум вариантов);
+        # тексты вариантов подставляются в show_question()
+        for i in range(4):
+            rb = QRadioButton("")
             self.options_group.addButton(rb, i)
             self.options.append(rb)
             options_box.addWidget(rb)

@@ -16,7 +16,6 @@ class BackgroundWidget(QWidget):
 
         w = self.width()
         h = self.height()
-
         # четыре знака по углам
         p.drawText(45, 100, "+")
         p.drawText(w - 100, 115, "×")

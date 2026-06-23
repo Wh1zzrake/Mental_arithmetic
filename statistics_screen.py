@@ -90,7 +90,7 @@ class OverallStatsScreen(QWidget):
     def refresh(self):
         users = stats.get_all_users()           # все пользователи из users.json
 
-        # логин текущего пользователя — чтобы отметить его строку словом «Вы»
+        # логин текущего пользователя — чтобы пометить его строку «(вы)»
         me = self.main.current_user
         my_username = me.get("username", "") if isinstance(me, dict) else ""
 
@@ -105,11 +105,12 @@ class OverallStatsScreen(QWidget):
                     best_score = t["score"]
                     best_total = t["total"]
 
-            # как показывать имя: своя строка — «Вы», иначе имя (или логин)
+            # в колонке «Ученик» показываем логин пользователя,
+            # свою строку дополнительно помечаем «(вы)»
             if u["username"] == my_username:
-                name = "Вы"
+                name = u["username"] + " (вы)"
             else:
-                name = u.get("name") or u["username"]
+                name = u["username"]
 
             ranking.append((best_score, best_total, name))
 
@@ -140,8 +141,8 @@ class PersonalStatsScreen(QWidget):
         layout.setContentsMargins(26, 26, 26, 26)
         layout.setSpacing(16)
 
-        # ----- шапка пользователя: имя + группа -----
-        self.user_name = QLabel("Имя: логин")
+        # ----- шапка пользователя: имя + группа (заполняется в refresh) -----
+        self.user_name = QLabel("")
         self.user_name.setObjectName("h1")
         self.user_group = QLabel("Группа —")
         self.user_group.setObjectName("muted")

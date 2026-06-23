@@ -1,0 +1,47 @@
+[
+  {
+    "username": "kolya733",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "name": "Николай",
+    "group": "С422",
+    "tests": [
+      {
+        "date": "2026-06-22 20:38",
+        "score": 1,
+        "total": 15,
+        "percent": 7,
+        "grade": 2
+      }
+    ],
+    "trainer": {
+      "solved": 9,
+      "correct": 0
+    }
+  },
+  {
+    "username": "foroge",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "name": "Фёдор",
+    "group": "С422",
+    "tests": [
+      {
+        "date": "2026-06-22 20:38",
+        "score": 1,
+        "total": 15,
+        "percent": 7,
+        "grade": 2
+      },
+      {
+        "date": "2026-06-22 20:39",
+        "score": 5,
+        "total": 15,
+        "percent": 33,
+        "grade": 2
+      }
+    ],
+    "trainer": {
+      "solved": 0,
+      "correct": 0
+    }
+  }
+]

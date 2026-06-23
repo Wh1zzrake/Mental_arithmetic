@@ -1,5 +1,5 @@
 # generators.py — генераторы заданий для тренажёра.
-# Каждая функция сама придумывает задание и сразу считает правильный ответ.
+# Каждая функция придумывает задание и сразу считает правильный ответ.
 # Возвращает пару: (текст_задания, правильный_ответ).
 
 import random
@@ -7,7 +7,7 @@ import random
 
 def gen_mult_by_11():
     """Умножение двузначного числа на 11."""
-    n = random.randint(10, 99)        # любое двузначное число
+    n = random.randint(10, 99)
     text = f"{n} × 11 = ?"
     answer = n * 11
     return text, answer
@@ -15,8 +15,8 @@ def gen_mult_by_11():
 
 def gen_square5():
     """Квадрат числа, оканчивающегося на 5 (15, 25, ... 95)."""
-    k = random.randint(1, 9)          # первая цифра: 1..9
-    n = k * 10 + 5                    # получаем 15, 25, 35, ... 95
+    k = random.randint(1, 9)
+    n = k * 10 + 5                    # 15, 25, 35, ... 95
     text = f"{n}² = ?"
     answer = n * n
     return text, answer
@@ -27,7 +27,7 @@ def gen_percent():
     p = random.choice([5, 10, 15, 20, 25, 50])
     n = random.randint(1, 10) * 20    # 20, 40, 60, ... 200
     text = f"{p}% от {n} = ?"
-    answer = n * p // 100             # // — деление без остатка (целое число)
+    answer = n * p // 100
     return text, answer
 
 
@@ -36,7 +36,7 @@ def gen_divisible():
     n = random.randint(100, 999)
     d = random.choice([2, 3, 4, 5, 6, 9, 11])
     text = f"{n} делится на {d}? (да / нет)"
-    if n % d == 0:                    # % — остаток от деления
+    if n % d == 0:
         answer = "да"
     else:
         answer = "нет"
@@ -47,12 +47,12 @@ def gen_add_sub():
     """Сложение или вычитание двух двузначных чисел."""
     a = random.randint(10, 99)
     b = random.randint(10, 99)
-    if random.choice([True, False]):  # «монетка»: плюс или минус
+    if random.choice([True, False]):
         text = f"{a} + {b} = ?"
         answer = a + b
     else:
-        if a < b:                     # чтобы ответ не был отрицательным
-            a, b = b, a               # меняем числа местами
+        if a < b:                     # чтобы ответ не получился отрицательным
+            a, b = b, a
         text = f"{a} − {b} = ?"
         answer = a - b
     return text, answer
@@ -68,7 +68,7 @@ def gen_mult_5_9_25():
 
 
 # Словарь: ключ типа задания -> функция-генератор.
-# Ключи понадобятся экрану тренажёра, чтобы выбрать нужный тип.
+# Ключи использует экран тренажёра, чтобы выбрать нужный тип.
 TASKS = {
     "mult11":       gen_mult_by_11,
     "square5":      gen_square5,
@@ -81,7 +81,7 @@ TASKS = {
 
 def random_task(kind):
     """Создать одно задание выбранного типа.
-    Если kind == "mix" — это режим «вперемешку»: берём случайный тип."""
+    Если kind == "mix" — режим «вперемешку»: берём случайный тип."""
     if kind == "mix":
         kind = random.choice(list(TASKS.keys()))
     return TASKS[kind]()

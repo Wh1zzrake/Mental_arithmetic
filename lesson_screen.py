@@ -35,21 +35,21 @@ class LessonScreen(QWidget):
         right = QVBoxLayout()
         right.setSpacing(11)
 
-        self.topic_lesson_no = QLabel("Урок")
+        self.topic_lesson_no = QLabel("")
         self.topic_lesson_no.setObjectName("chipBig")
 
-        self.topic_title = QLabel("Название темы")
+        self.topic_title = QLabel("")
         self.topic_title.setObjectName("lessonTitle")
 
-        self.topic_theory = QLabel("Текст приёма…")
+        self.topic_theory = QLabel("")
         self.topic_theory.setObjectName("theory")
         self.topic_theory.setWordWrap(True)
 
-        self.topic_example = QLabel("Пример…")
+        self.topic_example = QLabel("")
         self.topic_example.setObjectName("block")
         self.topic_example.setWordWrap(True)
 
-        self.topic_image = QLabel("[ картинка-схема ]")
+        self.topic_image = QLabel("")
         self.topic_image.setObjectName("block")
         self.topic_image.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.topic_image.setMinimumHeight(160)
