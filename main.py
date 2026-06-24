@@ -2,8 +2,8 @@ import sys
 
 from PyQt6.QtWidgets import QApplication
 
-from main_window import MainWindow
-import styles
+from core.main_window import MainWindow
+from core import styles
 
 app = QApplication(sys.argv)
 styles.apply(app)
