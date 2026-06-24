@@ -1,4 +1,6 @@
-import sys, os
+import sys
+import os
+
 
 if getattr(sys, "frozen", False):      # запущено как .exe
     BASE = os.path.dirname(sys.executable)

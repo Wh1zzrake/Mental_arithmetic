@@ -2,9 +2,11 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout,
                              QLabel, QLineEdit, QPushButton, QMessageBox)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon
+
 from paths import img_path
 from background import BackgroundWidget
 import auth
+
 
 class RegisterScreen(BackgroundWidget):
     def __init__(self, main_window):

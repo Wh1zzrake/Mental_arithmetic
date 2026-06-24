@@ -1,4 +1,5 @@
 import json
+
 from paths import data_path   # путь к файлам в папке data/
 
 

@@ -2,8 +2,10 @@ from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout, QGridLayout,
                              QLabel, QPushButton, QFrame, QWidget, QApplication)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon
+
 from paths import img_path
 from background import BackgroundWidget
+
 
 class MenuScreen(BackgroundWidget):
     def __init__(self, main_window):

@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                              QHeaderView, QAbstractItemView)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon
+
 from paths import img_path
 import stats                       # чтение статистики из users.json
 
@@ -185,7 +186,8 @@ class PersonalStatsScreen(QWidget):
         layout.addWidget(self.history)
         layout.addLayout(back_row)
 
-    def _metric(self, caption, value):
+    @staticmethod
+    def _metric(caption, value):
         card = QFrame()
         card.setObjectName("metric")
         box = QVBoxLayout(card)

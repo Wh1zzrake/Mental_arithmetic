@@ -3,10 +3,12 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
                              QLabel, QLineEdit, QPushButton, QFrame)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap, QIntValidator
+
 from paths import img_path
 from background import BackgroundWidget
 import generators                      # генераторы заданий (text, answer)
 import stats                           # сохранение итога сессии в статистику
+
 
 # ---------- список тренажёров ----------
 class TrainerListScreen(BackgroundWidget):

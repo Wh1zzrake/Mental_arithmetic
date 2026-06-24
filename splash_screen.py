@@ -2,8 +2,10 @@ from PyQt6.QtWidgets import (QVBoxLayout, QHBoxLayout,
                              QLabel, QPushButton)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon
+
 from paths import img_path
 from background import BackgroundWidget
+
 
 class SplashScreen(BackgroundWidget):
     def __init__(self, main_window):
