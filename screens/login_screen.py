@@ -40,21 +40,21 @@ class LoginScreen(BackgroundWidget):
         self.password_input.setPlaceholderText("Пароль")
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
         self.password_input.setObjectName("big")
-        self.password_input.returnPressed.connect(self.do_login)   # Enter = «Войти»
+        self.password_input.returnPressed.connect(self.do_login)   # Enter в поле = КНОПКА «Войти» → do_login()
 
-        enter_btn = QPushButton("  Войти")
+        enter_btn = QPushButton("  Войти")            # КНОПКА «Войти»
         enter_btn.setObjectName("accentBig")
         enter_btn.setIcon(QIcon(img_path("icon_login.png")))
         enter_btn.setIconSize(QSize(22, 22))
-        enter_btn.clicked.connect(self.do_login)
+        enter_btn.clicked.connect(self.do_login)      # → обработчик do_login()
 
-        register_link = QLabel(
+        register_link = QLabel(                       # ССЫЛКА-текст «Зарегистрироваться»
             '<span style="color:#8A7355;">Нет аккаунта?</span> '
             '<a href="#" style="color:#D9822B; text-decoration:none;">Зарегистрироваться</a>'
         )
         register_link.setStyleSheet("font-size:22px;")
         register_link.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        register_link.linkActivated.connect(self.open_register)
+        register_link.linkActivated.connect(self.open_register)   # клик по ссылке → open_register()
 
         layout.addWidget(logo)
         layout.addWidget(title)
@@ -67,6 +67,8 @@ class LoginScreen(BackgroundWidget):
         outer.addWidget(form)
 
     def do_login(self):
+        # обработчик КНОПКИ «Войти» (и Enter в поле пароля):
+        # проверяет логин/пароль и при успехе переводит в меню
         username = self.login_input.text().strip()
         password = self.password_input.text()
 
@@ -86,4 +88,5 @@ class LoginScreen(BackgroundWidget):
         self.main.go_to(self.main.menu)
 
     def open_register(self):
+        # обработчик ССЫЛКИ «Зарегистрироваться»: показать экран регистрации
         self.main.go_to(self.main.register)

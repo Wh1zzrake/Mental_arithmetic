@@ -38,17 +38,17 @@ class TrainerListScreen(BackgroundWidget):
         for i, (marker, label, key) in enumerate(task_types):
             grid.addWidget(self._task_btn(marker, label, key), i // 2, i % 2)
 
-        mix_btn = QPushButton("  Вперемешку")
+        mix_btn = QPushButton("  Вперемешку")   # КНОПКА «Вперемешку»
         mix_btn.setObjectName("accentBig")
         mix_btn.setIcon(QIcon(img_path("icon_shuffle.png")))
         mix_btn.setIconSize(QSize(24, 24))
-        mix_btn.clicked.connect(lambda: self._open("mix"))
+        mix_btn.clicked.connect(lambda: self._open("mix"))   # → запустить смешанный режим
 
-        back_btn = QPushButton("  В главное меню")
+        back_btn = QPushButton("  В главное меню")   # КНОПКА «В главное меню»
         back_btn.setObjectName("big")
         back_btn.setIcon(QIcon(img_path("icon_back.png")))
         back_btn.setIconSize(QSize(24, 24))
-        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
+        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # → вернуться в меню
 
         layout.addStretch()
         layout.addWidget(title)
@@ -78,10 +78,15 @@ class TrainerListScreen(BackgroundWidget):
         row.addWidget(lbl)
         row.addStretch()
 
+        # Карточка ведёт себя как кнопка: ловим клик мышью по всей карточке.
+        # k=key «замораживает» текущий ключ в лямбде (иначе все карточки
+        # ссылались бы на последний key из цикла). По клику → _open(этот key).
         frame.mousePressEvent = lambda e, k=key: self._open(k)
         return frame
 
     def _open(self, kind):
+        # обработчик клика по карточке/кнопке «Вперемешку»:
+        # задаём тип задания в рабочем окне и открываем его
         self.main.trainer_work.set_kind(kind)
         self.main.go_to(self.main.trainer_work)
 
@@ -124,18 +129,18 @@ class TrainerWorkScreen(BackgroundWidget):
         self.answer_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
         # в поле ответа можно вводить ТОЛЬКО цифры (целое число от 0)
         self.answer_input.setValidator(QIntValidator(0, 1000000000, self))
-        self.answer_input.returnPressed.connect(self.check_answer)   # Enter = «Ответ»
+        self.answer_input.returnPressed.connect(self.check_answer)   # Enter в поле = КНОПКА «Ответ» → check_answer()
 
         # кнопки «Да» / «Нет» — показываются ВМЕСТО поля в заданиях на
         # признаки делимости (там ответ не число, а «да/нет»)
-        self.yes_btn = QPushButton("Да")
+        self.yes_btn = QPushButton("Да")              # КНОПКА «Да» (только в делимости)
         self.yes_btn.setObjectName("big")
         self.yes_btn.setFixedWidth(120)
-        self.yes_btn.clicked.connect(lambda: self.submit_answer("да"))
-        self.no_btn = QPushButton("Нет")
+        self.yes_btn.clicked.connect(lambda: self.submit_answer("да"))   # → submit_answer("да")
+        self.no_btn = QPushButton("Нет")              # КНОПКА «Нет» (только в делимости)
         self.no_btn.setObjectName("big")
         self.no_btn.setFixedWidth(120)
-        self.no_btn.clicked.connect(lambda: self.submit_answer("нет"))
+        self.no_btn.clicked.connect(lambda: self.submit_answer("нет"))   # → submit_answer("нет")
         self.yesno_widget = QWidget()
         yesno_box = QHBoxLayout(self.yesno_widget)
         yesno_box.setContentsMargins(0, 0, 0, 0)
@@ -164,23 +169,23 @@ class TrainerWorkScreen(BackgroundWidget):
         feedback_row.addWidget(self.feedback)
         feedback_row.addStretch()
 
-        self.answer_btn = QPushButton("  Ответ")
+        self.answer_btn = QPushButton("  Ответ")   # КНОПКА «Ответ»
         self.answer_btn.setObjectName("accentBig")
         self.answer_btn.setIcon(QIcon(img_path("icon_check.png")))
         self.answer_btn.setIconSize(QSize(22, 22))
-        self.answer_btn.clicked.connect(self.check_answer)           # проверка ответа
+        self.answer_btn.clicked.connect(self.check_answer)           # → обработчик check_answer()
 
-        list_btn = QPushButton("  К списку")
+        list_btn = QPushButton("  К списку")        # КНОПКА «К списку»
         list_btn.setObjectName("big")
         list_btn.setIcon(QIcon(img_path("icon_list.png")))
         list_btn.setIconSize(QSize(22, 22))
-        list_btn.clicked.connect(self.go_to_list)               # сохранить сессию и к списку
+        list_btn.clicked.connect(self.go_to_list)               # → сохранить сессию и к списку
 
-        menu_btn = QPushButton("  Меню")
+        menu_btn = QPushButton("  Меню")            # КНОПКА «Меню»
         menu_btn.setObjectName("big")
         menu_btn.setIcon(QIcon(img_path("icon_home.png")))
         menu_btn.setIconSize(QSize(22, 22))
-        menu_btn.clicked.connect(self.go_to_menu)               # сохранить сессию и в меню
+        menu_btn.clicked.connect(self.go_to_menu)               # → сохранить сессию и в меню
 
         secondary_row = QHBoxLayout()
         secondary_row.setSpacing(11)

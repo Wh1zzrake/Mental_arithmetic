@@ -72,11 +72,11 @@ class OverallStatsScreen(QWidget):
         clean_table(self.table)
 
         # кнопка «В главное меню» — слева, по содержимому (не на всю ширину)
-        back_btn = QPushButton("  В главное меню")
+        back_btn = QPushButton("  В главное меню")   # КНОПКА «В главное меню»
         back_btn.setObjectName("big")
         back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
         back_btn.setIconSize(QSize(22, 22))
-        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
+        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # → вернуться в меню
         back_row = QHBoxLayout()
         back_row.addWidget(back_btn)
         back_row.addStretch()
@@ -169,11 +169,11 @@ class PersonalStatsScreen(QWidget):
         self.history.setHorizontalHeaderLabels(["Дата", "Баллы", "Процент", "Оценка"])
         clean_table(self.history)
 
-        back_btn = QPushButton("  В главное меню")
+        back_btn = QPushButton("  В главное меню")   # КНОПКА «В главное меню»
         back_btn.setObjectName("big")
         back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
         back_btn.setIconSize(QSize(22, 22))
-        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
+        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # → вернуться в меню
         back_row = QHBoxLayout()
         back_row.addWidget(back_btn)
         back_row.addStretch()

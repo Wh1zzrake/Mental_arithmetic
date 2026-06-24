@@ -90,15 +90,15 @@ class TestScreen(BackgroundWidget):
         # ----- кнопки -----
         buttons_row = QHBoxLayout()
 
-        self.next_btn = QPushButton("→  Далее")
+        self.next_btn = QPushButton("→  Далее")   # КНОПКА «Далее» (на 15-м вопросе станет «Завершить тест»)
         self.next_btn.setObjectName("accentBig")
         self.next_btn.setMinimumWidth(300)
-        self.next_btn.clicked.connect(self.next_question)
+        self.next_btn.clicked.connect(self.next_question)   # → обработчик next_question()
 
-        menu_btn = QPushButton("×  В меню")
+        menu_btn = QPushButton("×  В меню")        # КНОПКА «В меню» (досрочный выход)
         menu_btn.setObjectName("big")
         menu_btn.setMinimumWidth(150)
-        menu_btn.clicked.connect(self.interrupt)
+        menu_btn.clicked.connect(self.interrupt)            # → обработчик interrupt()
 
         buttons_row.addWidget(self.next_btn, 2)
         buttons_row.addWidget(menu_btn, 1)

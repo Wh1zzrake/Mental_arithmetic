@@ -45,24 +45,24 @@ class MenuScreen(BackgroundWidget):
         grid.setColumnStretch(1, 3)   # правая колонка ~30%
 
         # левый столбец — действия
-        learn_btn = self._menu_button("Обучение", "op_plus_accent.png", accent=True)
-        learn_btn.clicked.connect(lambda: self.main.go_to(self.main.lesson))
+        learn_btn = self._menu_button("Обучение", "op_plus_accent.png", accent=True)  # КНОПКА «Обучение»
+        learn_btn.clicked.connect(lambda: self.main.go_to(self.main.lesson))          # → экран лекций
 
-        test_btn = self._menu_button("Тест", "op_minus.png")
-        test_btn.clicked.connect(lambda: self.main.go_to(self.main.test))
+        test_btn = self._menu_button("Тест", "op_minus.png")                          # КНОПКА «Тест»
+        test_btn.clicked.connect(lambda: self.main.go_to(self.main.test))             # → экран теста
 
-        trainer_btn = self._menu_button("Тренажёр", "op_times.png")
-        trainer_btn.clicked.connect(lambda: self.main.go_to(self.main.trainer_list))
+        trainer_btn = self._menu_button("Тренажёр", "op_times.png")                   # КНОПКА «Тренажёр»
+        trainer_btn.clicked.connect(lambda: self.main.go_to(self.main.trainer_list))  # → список тренажёров
 
         # правый столбец — статистика и выход
-        personal_btn = self._menu_button("Личная статистика", "op_percent.png")
-        personal_btn.clicked.connect(lambda: self.main.go_to(self.main.personal_stats))
+        personal_btn = self._menu_button("Личная статистика", "op_percent.png")       # КНОПКА «Личная статистика»
+        personal_btn.clicked.connect(lambda: self.main.go_to(self.main.personal_stats))  # → личная статистика
 
-        overall_btn = self._menu_button("Общая статистика", "op_plus.png")
-        overall_btn.clicked.connect(lambda: self.main.go_to(self.main.overall_stats))
+        overall_btn = self._menu_button("Общая статистика", "op_plus.png")            # КНОПКА «Общая статистика»
+        overall_btn.clicked.connect(lambda: self.main.go_to(self.main.overall_stats))  # → рейтинг пользователей
 
-        exit_btn = self._menu_button("Выход", "icon_power.png")
-        exit_btn.clicked.connect(self.show_exit_menu)
+        exit_btn = self._menu_button("Выход", "icon_power.png")                        # КНОПКА «Выход»
+        exit_btn.clicked.connect(self.show_exit_menu)                                  # → обработчик show_exit_menu()
 
         # раскладка как на мокапе: слева действия, справа статистика + выход
         grid.addWidget(learn_btn,    0, 0)
@@ -112,17 +112,17 @@ class MenuScreen(BackgroundWidget):
         title.setObjectName("h2")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        logout_btn = QPushButton("Выйти из аккаунта")
+        logout_btn = QPushButton("Выйти из аккаунта")   # КНОПКА окна выхода «Выйти из аккаунта»
         logout_btn.setObjectName("big")
-        logout_btn.clicked.connect(self.logout)
+        logout_btn.clicked.connect(self.logout)          # → обработчик logout()
 
-        quit_btn = QPushButton("Выйти из программы")
+        quit_btn = QPushButton("Выйти из программы")     # КНОПКА окна выхода «Выйти из программы»
         quit_btn.setObjectName("accentBig")
-        quit_btn.clicked.connect(QApplication.quit)
+        quit_btn.clicked.connect(QApplication.quit)      # → закрыть всё приложение
 
-        close_btn = QPushButton("Закрыть")
+        close_btn = QPushButton("Закрыть")               # КНОПКА окна выхода «Закрыть»
         close_btn.setObjectName("big")
-        close_btn.clicked.connect(self.overlay.hide)
+        close_btn.clicked.connect(self.overlay.hide)     # → просто спрятать окно выхода
 
         box.addWidget(title)
         box.addWidget(logout_btn)
@@ -133,6 +133,7 @@ class MenuScreen(BackgroundWidget):
 
     # показать окно выхода: растянуть слой на весь экран и поднять поверх кнопок
     def show_exit_menu(self):
+        # обработчик КНОПКИ «Выход»: показать всплывающее окно выхода
         self.overlay.resize(self.size())
         self.overlay.raise_()
         self.overlay.show()
@@ -150,6 +151,7 @@ class MenuScreen(BackgroundWidget):
         self.greeting.setText(f"Здравствуйте, {name}" if name else "Здравствуйте!")
 
     def logout(self):
+        # обработчик КНОПКИ «Выйти из аккаунта»: сбросить пользователя и уйти на вход
         self.overlay.hide()
         self.main.current_user = None
         self.main.go_to(self.main.login)

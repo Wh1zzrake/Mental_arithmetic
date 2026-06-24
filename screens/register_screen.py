@@ -46,19 +46,19 @@ class RegisterScreen(BackgroundWidget):
         buttons_row = QHBoxLayout()
         buttons_row.setSpacing(12)
 
-        register_btn = QPushButton("  Зарегистрироваться")
+        register_btn = QPushButton("  Зарегистрироваться")   # КНОПКА «Зарегистрироваться»
         register_btn.setObjectName("accentBig")
         register_btn.setMinimumWidth(300)
         register_btn.setIcon(QIcon(img_path("icon_register_white.png")))
         register_btn.setIconSize(QSize(22, 22))
-        register_btn.clicked.connect(self.do_register)
+        register_btn.clicked.connect(self.do_register)        # → обработчик do_register()
 
-        back_btn = QPushButton("  Назад")
+        back_btn = QPushButton("  Назад")                     # КНОПКА «Назад»
         back_btn.setObjectName("big")
         back_btn.setMinimumWidth(150)
         back_btn.setIcon(QIcon(img_path("icon_back.png")))
         back_btn.setIconSize(QSize(22, 22))
-        back_btn.clicked.connect(self.go_back)
+        back_btn.clicked.connect(self.go_back)                # → обработчик go_back()
 
         buttons_row.addWidget(register_btn)
         buttons_row.addWidget(back_btn, 1)
@@ -74,6 +74,8 @@ class RegisterScreen(BackgroundWidget):
         outer.addWidget(form)
 
     def do_register(self):
+        # обработчик КНОПКИ «Зарегистрироваться»:
+        # проверяет все поля, создаёт аккаунт и сразу выполняет вход
         username = self.login_input.text().strip()
         password = self.password_input.text()
         name = self.name_input.text().strip()
@@ -168,4 +170,5 @@ class RegisterScreen(BackgroundWidget):
         self.main.go_to(self.main.menu)
 
     def go_back(self):
+        # обработчик КНОПКИ «Назад»: вернуться на заставку
         self.main.go_to(self.main.splash)

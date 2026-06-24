@@ -40,19 +40,19 @@ class SplashScreen(BackgroundWidget):
         buttons_row.setSpacing(12)
         buttons_row.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        login_btn = QPushButton("  Вход")
+        login_btn = QPushButton("  Вход")            # КНОПКА «Вход»
         login_btn.setObjectName("accentBig")
         login_btn.setFixedSize(230, 70)
         login_btn.setIcon(QIcon(img_path("icon_login.png")))
         login_btn.setIconSize(QSize(22, 22))
-        login_btn.clicked.connect(self.open_login)
+        login_btn.clicked.connect(self.open_login)    # → обработчик open_login()
 
-        register_btn = QPushButton("  Регистрация")
+        register_btn = QPushButton("  Регистрация")   # КНОПКА «Регистрация»
         register_btn.setObjectName("big")
         register_btn.setFixedSize(230, 70)
         register_btn.setIcon(QIcon(img_path("icon_register.png")))
         register_btn.setIconSize(QSize(22, 22))
-        register_btn.clicked.connect(self.open_register)
+        register_btn.clicked.connect(self.open_register)  # → обработчик open_register()
 
         buttons_row.addWidget(login_btn)
         buttons_row.addWidget(register_btn)
@@ -71,7 +71,9 @@ class SplashScreen(BackgroundWidget):
         layout.addWidget(author)
 
     def open_login(self):
+        # обработчик КНОПКИ «Вход»: показать экран входа
         self.main.go_to(self.main.login)
 
     def open_register(self):
+        # обработчик КНОПКИ «Регистрация»: показать экран регистрации
         self.main.go_to(self.main.register)

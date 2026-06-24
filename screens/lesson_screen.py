@@ -24,12 +24,12 @@ class LessonScreen(QWidget):
         columns.setSpacing(16)
 
         # слева — список тем
-        self.topics = QListWidget()
+        self.topics = QListWidget()    # СПИСОК ТЕМ (выбор темы = обработчик show_lesson)
         self.topics.setFixedWidth(260)
         self.topics.setWordWrap(True)  # длинные названия переносятся на 2 строки
         self.topics.setHorizontalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        # как только выбрали другую строку — обновим правую часть
+        # как только выбрали другую строку — обновим правую часть → обработчик show_lesson()
         self.topics.currentRowChanged.connect(self.show_lesson)
 
         # справа — содержимое выбранной темы
@@ -78,11 +78,11 @@ class LessonScreen(QWidget):
         columns.addWidget(self.topics)
         columns.addWidget(scroll)
 
-        back_btn = QPushButton("  В главное меню")
+        back_btn = QPushButton("  В главное меню")   # КНОПКА «В главное меню»
         back_btn.setObjectName("big")
         back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
         back_btn.setIconSize(QSize(20, 20))
-        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))
+        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # → вернуться в меню
 
         # кладём кнопку в строку и прижимаем влево (не на всю ширину)
         back_row = QHBoxLayout()
