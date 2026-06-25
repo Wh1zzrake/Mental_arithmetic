@@ -46,11 +46,18 @@
         "total": 15,
         "percent": 100,
         "grade": 5
+      },
+      {
+        "date": "2026-06-25 15:36",
+        "score": 3,
+        "total": 15,
+        "percent": 20,
+        "grade": 2
       }
     ],
     "trainer": {
-      "solved": 30,
-      "correct": 21
+      "solved": 37,
+      "correct": 24
     }
   },
   {
@@ -86,6 +93,28 @@
         "grade": 2
       }
     ],
+    "trainer": {
+      "solved": 0,
+      "correct": 0
+    }
+  },
+  {
+    "username": "oklufsd__",
+    "password": "f02bd3c15555aa3ddc29c733e62a18142e7fbdd8de917e4766220ff091519a9f",
+    "name": "Николай",
+    "group": "С422",
+    "tests": [],
+    "trainer": {
+      "solved": 0,
+      "correct": 0
+    }
+  },
+  {
+    "username": "kolya7332",
+    "password": "e70c428157af4643ec71871e1bdceabf6b3ecc9cb6000e99be34121fd93fd5e0",
+    "name": "Николай",
+    "group": "с422",
+    "tests": [],
     "trainer": {
       "solved": 0,
       "correct": 0
