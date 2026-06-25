@@ -35,12 +35,12 @@ class RegisterScreen(BackgroundWidget):
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
         self.password_input.setObjectName("big")
 
-        # «глазик» внутри поля пароля: показать/скрыть введённый пароль
-        self.eye_icon_on = QIcon(img_path("icon_eye.png"))         # открытый глаз — пароль скрыт
-        self.eye_icon_off = QIcon(img_path("icon_eye_off.png"))    # перечёркнутый глаз — пароль виден
-        self.eye_action = self.password_input.addAction(           # иконка-кнопка справа внутри поля
+        # глазик внутри поля пароля: показать/скрыть введённый пароль
+        self.eye_icon_on = QIcon(img_path("icon_eye.png")) # открытый глаз — пароль скрыт
+        self.eye_icon_off = QIcon(img_path("icon_eye_off.png")) # перечёркнутый глаз — пароль виден
+        self.eye_action = self.password_input.addAction( # иконка-кнопка справа внутри поля
             self.eye_icon_on, QLineEdit.ActionPosition.TrailingPosition)
-        self.eye_action.triggered.connect(self.toggle_password)    # клик по глазику → toggle_password()
+        self.eye_action.triggered.connect(self.toggle_password) # клик по глазику  toggle_password()
 
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Имя")
@@ -53,19 +53,19 @@ class RegisterScreen(BackgroundWidget):
         buttons_row = QHBoxLayout()
         buttons_row.setSpacing(12)
 
-        register_btn = QPushButton("  Зарегистрироваться")   # КНОПКА «Зарегистрироваться»
+        register_btn = QPushButton("  Зарегистрироваться") # кнопка Зарегистрироваться
         register_btn.setObjectName("accentBig")
         register_btn.setMinimumWidth(300)
         register_btn.setIcon(QIcon(img_path("icon_register_white.png")))
         register_btn.setIconSize(QSize(22, 22))
-        register_btn.clicked.connect(self.do_register)        # → обработчик do_register()
+        register_btn.clicked.connect(self.do_register) #  обработчик do_register()
 
-        back_btn = QPushButton("  Назад")                     # КНОПКА «Назад»
+        back_btn = QPushButton("  Назад") # кнопка Назад
         back_btn.setObjectName("big")
         back_btn.setMinimumWidth(150)
         back_btn.setIcon(QIcon(img_path("icon_back.png")))
         back_btn.setIconSize(QSize(22, 22))
-        back_btn.clicked.connect(self.go_back)                # → обработчик go_back()
+        back_btn.clicked.connect(self.go_back) #  обработчик go_back()
 
         buttons_row.addWidget(register_btn)
         buttons_row.addWidget(back_btn, 1)
@@ -81,7 +81,7 @@ class RegisterScreen(BackgroundWidget):
         outer.addWidget(form)
 
     def do_register(self):
-        # обработчик КНОПКИ «Зарегистрироваться»:
+        # обработчик кнопки Зарегистрироваться:
         # проверяет все поля, создаёт аккаунт и сразу выполняет вход
         username = self.login_input.text().strip()
         password = self.password_input.text()
@@ -177,11 +177,11 @@ class RegisterScreen(BackgroundWidget):
         self.main.go_to(self.main.menu)
 
     def go_back(self):
-        # обработчик КНОПКИ «Назад»: вернуться на заставку
+        # обработчик кнопки Назад: вернуться на заставку
         self.main.go_to(self.main.splash)
 
     def toggle_password(self):
-        # переключатель «глазика»: меняет режим отображения пароля и саму иконку
+        # переключатель глазика: меняет режим отображения пароля и саму иконку
         if self.password_input.echoMode() == QLineEdit.EchoMode.Password:
             self.password_input.setEchoMode(QLineEdit.EchoMode.Normal)    # показать пароль
             self.eye_action.setIcon(self.eye_icon_off)                    # глаз перечёркнут

@@ -49,7 +49,7 @@ class LoginScreen(BackgroundWidget):
             self.eye_icon_on, QLineEdit.ActionPosition.TrailingPosition)
         self.eye_action.triggered.connect(self.toggle_password)    # клик по глазику  toggle_password()
 
-        enter_btn = QPushButton("  Войти")            # КНОПКА Войти
+        enter_btn = QPushButton("  Войти")            # кнопка Войти
         enter_btn.setObjectName("accentBig")
         enter_btn.setIcon(QIcon(img_path("icon_login.png")))
         enter_btn.setIconSize(QSize(22, 22))

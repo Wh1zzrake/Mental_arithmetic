@@ -8,39 +8,38 @@ from core.paths import img_path
 from logic import stats
 
 
-# делает таблицу «чистой»: без сетки, без нумерации строк, колонки на всю ширину
+# делает таблицу чистой: без сетки, без нумерации строк, колонки на всю ширину
 def clean_table(table):
     table.verticalHeader().setVisible(False)        # убрать номера строк слева
-    table.verticalHeader().setDefaultSectionSize(40)  # высота строки (чтобы не было тесно)
+    table.verticalHeader().setDefaultSectionSize(40)  # высота строки 
     table.setShowGrid(True)                         # видимая сетка — видно разграничение колонок и строк
     table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
     table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
     table.setFocusPolicy(Qt.FocusPolicy.NoFocus)
     table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch) # колонки тянутся на всю ширину
-    # заголовки по левому краю — тогда данные встают точно под ними (без смещения)
     table.horizontalHeader().setDefaultAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
 
 
-# заполняет таблицу строками: rows — список кортежей (значения по колонкам)
+# заполняет таблицу строками: rows — список кортежей
 def fill_table(table, rows):
-    table.setRowCount(len(rows))                    # столько строк, сколько данных
+    table.setRowCount(len(rows)) # столько строк, сколько данных
     for r, row in enumerate(rows):
         for c, value in enumerate(row):
             item = QTableWidgetItem(str(value))
-            item.setFlags(Qt.ItemFlag.ItemIsEnabled)  # нельзя редактировать/выделять
+            item.setFlags(Qt.ItemFlag.ItemIsEnabled) # нельзя редактировать/выделять
             table.setItem(r, c, item)
 
 
-# превращает дату из файла '2026-06-08 14:30' в вид '08.06.2026' (как в макете)
+# превращает дату из файла '2026-06-08 14:30' в вид '08.06.2026'
 def format_date(date_str):
     date_part = date_str.split(" ")[0]              # часть до пробела: '2026-06-08'
     bits = date_part.split("-")                     # ['2026', '06', '08']
     if len(bits) == 3:
         return f"{bits[2]}.{bits[1]}.{bits[0]}"     # переставляем: день.месяц.год
-    return date_str                                 # если формат другой — как есть
+    return date_str                                 # если формат другой то отставляем как есть
 
 
-# ---------- общая статистика (рейтинг) ----------
+# ------ общая статистика (рейтинг) ------
 class OverallStatsScreen(QWidget):
     def __init__(self, main_window):
         super().__init__()
@@ -50,7 +49,7 @@ class OverallStatsScreen(QWidget):
         layout.setContentsMargins(26, 26, 26, 26)
         layout.setSpacing(16)
 
-        # ----- заголовок: иконка-кубок (в цвет палитры) + текст -----
+        # --- заголовок: иконка-кубок (в цвет палитры) + текст ---
         title_row = QHBoxLayout()
         title_row.setSpacing(10)
 
@@ -71,12 +70,12 @@ class OverallStatsScreen(QWidget):
         self.table.setHorizontalHeaderLabels(["Место", "Ученик", "Лучший результат"])
         clean_table(self.table)
 
-        # кнопка «В главное меню» — слева, по содержимому (не на всю ширину)
-        back_btn = QPushButton("  В главное меню")   # КНОПКА «В главное меню»
+        # кнопка В главное меню — слева, по содержимому
+        back_btn = QPushButton("  В главное меню")   # кнопка В главное меню
         back_btn.setObjectName("big")
-        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
+        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа 
         back_btn.setIconSize(QSize(22, 22))
-        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # → вернуться в меню
+        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   #  вернуться в меню
         back_row = QHBoxLayout()
         back_row.addWidget(back_btn)
         back_row.addStretch()
@@ -89,23 +88,22 @@ class OverallStatsScreen(QWidget):
     def refresh(self):
         users = stats.get_all_users()           # все пользователи из users.json
 
-        # логин текущего пользователя — чтобы пометить его строку «(вы)»
+        # логин текущего пользователя — чтобы пометить его строку (вы)
         me = self.main.current_user
         my_username = me.get("username", "") if isinstance(me, dict) else ""
 
         # для каждого пользователя считаем лучший результат теста
-        ranking = []                            # список (лучший_балл, всего, имя_для_показа)
+        ranking = [] # список (лучший_балл, всего, имя_для_показа)
         for u in users:
             tests = u.get("tests", [])
             best_score = 0
             best_total = 15
-            for t in tests:                     # ищем тест с наибольшим числом верных
+            for t in tests: # ищем тест с наибольшим числом верных
                 if t["score"] > best_score:
                     best_score = t["score"]
                     best_total = t["total"]
 
-            # в колонке «Ученик» показываем логин пользователя,
-            # свою строку дополнительно помечаем «(вы)»
+            # в колонке Ученик показываем логин пользователя
             if u["username"] == my_username:
                 name = u["username"] + " (вы)"
             else:
@@ -130,7 +128,7 @@ class OverallStatsScreen(QWidget):
         fill_table(self.table, rows)
 
 
-# ---------- личная статистика ----------
+# ------ личная статистика ------
 class PersonalStatsScreen(QWidget):
     def __init__(self, main_window):
         super().__init__()
@@ -140,7 +138,7 @@ class PersonalStatsScreen(QWidget):
         layout.setContentsMargins(26, 26, 26, 26)
         layout.setSpacing(16)
 
-        # ----- шапка пользователя: имя + группа (заполняется в refresh) -----
+        # --- шапка пользователя: имя + группа (заполняется в refresh) ---
         self.user_name = QLabel("")
         self.user_name.setObjectName("h1")
         self.user_group = QLabel("Группа —")
@@ -150,7 +148,7 @@ class PersonalStatsScreen(QWidget):
         head.addWidget(self.user_name)
         head.addWidget(self.user_group)
 
-        # ----- карточки-метрики (по центру) -----
+        # --- карточки-метрики (по центру) ---
         # сохраняем ссылки на значения, чтобы потом обновлять их в refresh()
         metrics_row = QHBoxLayout()
         metrics_row.setSpacing(16)
@@ -161,7 +159,7 @@ class PersonalStatsScreen(QWidget):
         metrics_row.addWidget(best_card)
         metrics_row.addWidget(acc_card)
 
-        # ----- история тестов -----
+        # --- история тестов ---
         history_label = QLabel("История тестов:")
         history_label.setObjectName("muted")
 
@@ -169,11 +167,11 @@ class PersonalStatsScreen(QWidget):
         self.history.setHorizontalHeaderLabels(["Дата", "Баллы", "Процент", "Оценка"])
         clean_table(self.history)
 
-        back_btn = QPushButton("  В главное меню")   # КНОПКА «В главное меню»
+        back_btn = QPushButton("  В главное меню")   # кнопка В главное меню
         back_btn.setObjectName("big")
-        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
+        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа 
         back_btn.setIconSize(QSize(22, 22))
-        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # → вернуться в меню
+        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   #  вернуться в меню
         back_row = QHBoxLayout()
         back_row.addWidget(back_btn)
         back_row.addStretch()
@@ -208,7 +206,7 @@ class PersonalStatsScreen(QWidget):
         user = self.main.current_user
         username = user.get("username", "") if isinstance(user, dict) else ""
 
-        # берём СВЕЖИЕ данные из файла (в current_user они могут устареть
+        # берём свежие данные из файла (в current_user они могут устареть
         # после прохождения теста или тренажёра)
         data = stats.get_stats(username)
         if data is None:

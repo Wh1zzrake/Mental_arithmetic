@@ -30,7 +30,7 @@ class TestScreen(BackgroundWidget):
         layout.setContentsMargins(26, 26, 26, 26)
         layout.setSpacing(16)
 
-        # ----- верхняя строка: плашка «Вопрос N из 15» + группа -----
+        # --- верхняя строка: плашка Вопрос N из 15 + группа ---
         top_row = QHBoxLayout()
 
         chip = QFrame()
@@ -57,7 +57,7 @@ class TestScreen(BackgroundWidget):
         top_row.addStretch()
         top_row.addWidget(self.group_label)
 
-        # ----- ряд бусин прогресса (15 штук) -----
+        # --- ряд бусин прогресса (15 штук) ---
         beads_row = QHBoxLayout()
         beads_row.setSpacing(6)
         beads_row.setAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -69,12 +69,12 @@ class TestScreen(BackgroundWidget):
             self.beads.append(bead)
             beads_row.addWidget(bead)
 
-        # ----- вопрос-равенство ----- (текст задаётся в show_question)
+        # --- вопрос-равенство --- (текст задаётся в show_question)
         self.question = QLabel("")
         self.question.setObjectName("equation")
         self.question.setWordWrap(True)   # длинный текстовый вопрос переносится
 
-        # ----- варианты ответа (радиокнопки) -----
+        # --- варианты ответа (радиокнопки) ---
         self.options_group = QButtonGroup(self)
         self.options = []
         options_box = QVBoxLayout()
@@ -87,18 +87,18 @@ class TestScreen(BackgroundWidget):
             self.options.append(rb)
             options_box.addWidget(rb)
 
-        # ----- кнопки -----
+        # --- кнопки ---
         buttons_row = QHBoxLayout()
 
-        self.next_btn = QPushButton("→  Далее")   # КНОПКА «Далее» (на 15-м вопросе станет «Завершить тест»)
+        self.next_btn = QPushButton("  Далее")# кнопка Далее (на 15-м вопросе станет Завершить тест)
         self.next_btn.setObjectName("accentBig")
         self.next_btn.setMinimumWidth(300)
-        self.next_btn.clicked.connect(self.next_question)   # → обработчик next_question()
+        self.next_btn.clicked.connect(self.next_question)#  обработчик next_question()
 
-        menu_btn = QPushButton("×  В меню")        # КНОПКА «В меню» (досрочный выход)
+        menu_btn = QPushButton("×  В меню") # кнопка В меню (досрочный выход)
         menu_btn.setObjectName("big")
         menu_btn.setMinimumWidth(150)
-        menu_btn.clicked.connect(self.interrupt)            # → обработчик interrupt()
+        menu_btn.clicked.connect(self.interrupt) #  обработчик interrupt()
 
         buttons_row.addWidget(self.next_btn, 2)
         buttons_row.addWidget(menu_btn, 1)
@@ -119,7 +119,7 @@ class TestScreen(BackgroundWidget):
 
         # защита: если вопросов не удалось загрузить (файла нет / повреждён)
         # или их меньше 15 — тест не начинаем, показываем сообщение.
-        # Кнопка «В меню» вернёт на главный экран.
+        # кнопка В меню вернёт на главный экран.
         if len(all_questions) < 15:
             self.questions = []
             self.question.setText("Не удалось загрузить вопросы теста.")
@@ -154,12 +154,12 @@ class TestScreen(BackgroundWidget):
         for i, bead in enumerate(self.beads):
             bead.setStyleSheet(BEAD_FILLED if i <= self.index else BEAD_EMPTY)
 
-        # текст вопроса; «?» красим оранжевым, как в макете
+        # текст вопроса; ? красим оранжевым
         html = q["q"].replace("?", '<span style="color:#D9822B;">?</span>')
         self.question.setText(html)
 
         # подставляем варианты; лишние радиокнопки прячем
-        # (есть вопросы «да/нет» всего с 2 вариантами)
+        # (есть вопросы да/нет всего с 2 вариантами)
         count = len(q["options"])
         for i, rb in enumerate(self.options):
             if i < count:
@@ -178,10 +178,10 @@ class TestScreen(BackgroundWidget):
         if self.index == 14:
             self.next_btn.setText("✓  Завершить тест")
         else:
-            self.next_btn.setText("→  Далее")
+            self.next_btn.setText("  Далее")
 
     def next_question(self):
-        """Кнопка «Далее» / «Завершить тест»: проверяем выбор и идём дальше."""
+        """кнопка Далее / Завершить тест: проверяем выбор и идём дальше."""
         if not self.questions:
             return                         # тест не идёт (вопросы не загрузились)
         chosen = self.options_group.checkedId()   # -1, если ничего не выбрано
@@ -220,7 +220,7 @@ class TestScreen(BackgroundWidget):
         self.main.go_to(self.main.result)
 
     def interrupt(self):
-        """Кнопка «В меню»: прерываем тест с подтверждением; результат не сохраняем."""
+        """кнопка В меню: прерываем тест с подтверждением; результат не сохраняем."""
         # если тест не идёт (вопросы не загрузились) — выходим без подтверждения
         if not self.questions:
             self.main.go_to(self.main.menu)

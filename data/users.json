@@ -11,11 +11,84 @@
         "total": 15,
         "percent": 100,
         "grade": 5
+      },
+      {
+        "date": "2026-06-25 11:00",
+        "score": 15,
+        "total": 15,
+        "percent": 100,
+        "grade": 5
+      },
+      {
+        "date": "2026-06-25 11:01",
+        "score": 15,
+        "total": 15,
+        "percent": 100,
+        "grade": 5
+      },
+      {
+        "date": "2026-06-25 11:02",
+        "score": 15,
+        "total": 15,
+        "percent": 100,
+        "grade": 5
+      },
+      {
+        "date": "2026-06-25 11:03",
+        "score": 15,
+        "total": 15,
+        "percent": 100,
+        "grade": 5
+      },
+      {
+        "date": "2026-06-25 11:04",
+        "score": 15,
+        "total": 15,
+        "percent": 100,
+        "grade": 5
       }
     ],
     "trainer": {
       "solved": 30,
       "correct": 21
+    }
+  },
+  {
+    "username": "vanya7",
+    "password": "ec2c8bd7e98abe5ea50e00831c9c9786c5c0f377cfeb0d3fab10e4bc317834d8",
+    "name": "Ваня",
+    "group": "С412",
+    "tests": [
+      {
+        "date": "2026-06-25 12:02",
+        "score": 5,
+        "total": 15,
+        "percent": 33,
+        "grade": 2
+      }
+    ],
+    "trainer": {
+      "solved": 0,
+      "correct": 0
+    }
+  },
+  {
+    "username": "Semen15",
+    "password": "03e1b9c25f2f625ab4ebab488e9a82b5289e540c0f46d20f29c69e8120718e17",
+    "name": "Семён",
+    "group": "Д0201",
+    "tests": [
+      {
+        "date": "2026-06-25 12:03",
+        "score": 6,
+        "total": 15,
+        "percent": 40,
+        "grade": 2
+      }
+    ],
+    "trainer": {
+      "solved": 0,
+      "correct": 0
     }
   }
 ]

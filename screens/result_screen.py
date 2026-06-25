@@ -27,7 +27,7 @@ class ResultScreen(BackgroundWidget):
         check_row.addWidget(check)
         check_row.addStretch()
 
-        # счёт «N из 15» (текст задаётся в TestScreen.finish_test)
+        # счёт N из 15 (текст задаётся в TestScreen.finish_test)
         self.score = QLabel("")
         self.score.setObjectName("equation")
         self.score.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -36,7 +36,7 @@ class ResultScreen(BackgroundWidget):
         self.percent.setObjectName("muted")
         self.percent.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # чип-плашка «Оценка: N» — в ряду с растяжками, чтобы была «таблеткой»
+        # чип-плашка Оценка: N — в ряду с растяжками, чтобы была таблеткой
         self.grade = QLabel("")
         self.grade.setObjectName("chip")
         grade_row = QHBoxLayout()
@@ -44,12 +44,12 @@ class ResultScreen(BackgroundWidget):
         grade_row.addWidget(self.grade)
         grade_row.addStretch()
 
-        # контурная кнопка «В главное меню» — по центру, по содержимому
-        back_btn = QPushButton("  В главное меню")   # КНОПКА «В главное меню»
+        # контурная кнопка В главное меню — по центру, по содержимому
+        back_btn = QPushButton("  В главное меню")   # кнопка В главное меню
         back_btn.setObjectName("big")
-        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
+        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа 
         back_btn.setIconSize(QSize(22, 22))
-        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # → вернуться в меню
+        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   #  вернуться в меню
         back_row = QHBoxLayout()
         back_row.addStretch()
         back_row.addWidget(back_btn)
