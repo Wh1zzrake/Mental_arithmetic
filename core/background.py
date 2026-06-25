@@ -1,7 +1,3 @@
-# background.py
-# Виджет с водяными знаками + − × ÷ на фоне.
-# Экраны наследуются от него вместо обычного QWidget — и фон рисуется сам.
-
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtGui import QPainter, QColor, QFont
 

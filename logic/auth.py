@@ -1,7 +1,6 @@
-# auth.py — регистрация и вход.
-
-import json
 import hashlib
+import json
+
 
 from core.paths import data_path
 

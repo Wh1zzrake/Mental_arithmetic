@@ -1,7 +1,3 @@
-# stats.py — сохранение и чтение статистики пользователя.
-# Статистика хранится в том же data/users.json: читаем и пишем его
-# через готовые функции из auth.py (load_users / save_users).
-
 from datetime import datetime
 
 from logic.auth import load_users, save_users

@@ -116,7 +116,7 @@ class LessonScreen(QWidget):
     def show_lesson(self, index):
         """Показываем выбранную тему. index — номер строки в списке слева."""
         if index < 0:
-            return                                  # ничего не выбрано
+            return # ничего не выбрано
         lesson = self.lessons[index]
 
         self.topic_lesson_no.setText("Урок " + str(lesson["id"]))
@@ -125,7 +125,7 @@ class LessonScreen(QWidget):
         self.topic_example.setText(lesson["example"])
 
         # картинка: строим полный путь и пробуем загрузить
-        image_path = os.path.join(BASE, lesson["image"])
+        image_path = img_path(lesson["image"])
         pixmap = QPixmap(image_path)
         if pixmap.isNull():
             # файла нет — показываем заглушку

@@ -1,4 +1,3 @@
-# trainer_screen.py
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
                              QLabel, QLineEdit, QPushButton)
 from PyQt6.QtCore import Qt, QSize
@@ -126,18 +125,18 @@ class TrainerWorkScreen(BackgroundWidget):
         self.answer_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
         # в поле ответа можно вводить только цифры (целое число от 0)
         self.answer_input.setValidator(QIntValidator(0, 1000000000, self))
-        self.answer_input.returnPressed.connect(self.check_answer)   # Enter в поле = кнопка Ответ  check_answer()
+        self.answer_input.returnPressed.connect(self.check_answer)   # Enter в поле check_answer()
 
-        # кнопки Да / Нет — показываются ВМЕСТО поля в заданиях на
+        # кнопки Да / Нет — показываются вместо поля в заданиях на
         # признаки делимости (там ответ не число, а да/нет)
         self.yes_btn = QPushButton("Да")              # кнопка Да (только в делимости)
         self.yes_btn.setObjectName("big")
         self.yes_btn.setFixedWidth(120)
-        self.yes_btn.clicked.connect(lambda: self.submit_answer("да"))   #  submit_answer("да")
+        self.yes_btn.clicked.connect(lambda: self.submit_answer("да"))
         self.no_btn = QPushButton("Нет")              # кнопка Нет (только в делимости)
         self.no_btn.setObjectName("big")
         self.no_btn.setFixedWidth(120)
-        self.no_btn.clicked.connect(lambda: self.submit_answer("нет"))   #  submit_answer("нет")
+        self.no_btn.clicked.connect(lambda: self.submit_answer("нет"))
         self.yesno_widget = QWidget()
         yesno_box = QHBoxLayout(self.yesno_widget)
         yesno_box.setContentsMargins(0, 0, 0, 0)
