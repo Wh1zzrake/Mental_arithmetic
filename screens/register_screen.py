@@ -35,6 +35,13 @@ class RegisterScreen(BackgroundWidget):
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
         self.password_input.setObjectName("big")
 
+        # «глазик» внутри поля пароля: показать/скрыть введённый пароль
+        self.eye_icon_on = QIcon(img_path("icon_eye.png"))         # открытый глаз — пароль скрыт
+        self.eye_icon_off = QIcon(img_path("icon_eye_off.png"))    # перечёркнутый глаз — пароль виден
+        self.eye_action = self.password_input.addAction(           # иконка-кнопка справа внутри поля
+            self.eye_icon_on, QLineEdit.ActionPosition.TrailingPosition)
+        self.eye_action.triggered.connect(self.toggle_password)    # клик по глазику → toggle_password()
+
         self.name_input = QLineEdit()
         self.name_input.setPlaceholderText("Имя")
         self.name_input.setObjectName("big")
@@ -172,3 +179,12 @@ class RegisterScreen(BackgroundWidget):
     def go_back(self):
         # обработчик КНОПКИ «Назад»: вернуться на заставку
         self.main.go_to(self.main.splash)
+
+    def toggle_password(self):
+        # переключатель «глазика»: меняет режим отображения пароля и саму иконку
+        if self.password_input.echoMode() == QLineEdit.EchoMode.Password:
+            self.password_input.setEchoMode(QLineEdit.EchoMode.Normal)    # показать пароль
+            self.eye_action.setIcon(self.eye_icon_off)                    # глаз перечёркнут
+        else:
+            self.password_input.setEchoMode(QLineEdit.EchoMode.Password)  # снова скрыть
+            self.eye_action.setIcon(self.eye_icon_on)                     # глаз открыт
