@@ -1,6 +1,6 @@
 # trainer_screen.py
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QGridLayout,
-                             QLabel, QLineEdit, QPushButton, QFrame)
+                             QLabel, QLineEdit, QPushButton)
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap, QIntValidator
 
@@ -27,16 +27,33 @@ class TrainerListScreen(BackgroundWidget):
         grid.setColumnStretch(0, 1)
         grid.setColumnStretch(1, 1)
 
-        task_types = [
-            ("×", "Умножение на 11",         "mult11"),
-            ("²", "Квадраты чисел на 5",     "square5"),
-            ("%", "Проценты",                "percent"),
-            ("÷", "Признаки делимости",      "divisibility"),
-            ("+", "Сложение / вычитание",    "add_sub"),
-            ("×", "Умножение на 5 / 9 / 25", "mult_5_9_25"),
-        ]
-        for i, (marker, label, key) in enumerate(task_types):
-            grid.addWidget(self._task_btn(marker, label, key), i // 2, i % 2)
+        # шесть кнопок типов заданий — каждая создаётся явно (как в меню),
+        # у каждой свой clicked.connect со своим ключом тренажёра
+        mult11_btn = self._task_btn("Умножение на 11", "op_times.png")        # кнопка Умножение на 11
+        mult11_btn.clicked.connect(lambda: self._open("mult11"))             #  тренажёр n × 11
+
+        square5_btn = self._task_btn("Квадраты чисел на 5", "op_times.png")   # кнопка Квадраты чисел на 5
+        square5_btn.clicked.connect(lambda: self._open("square5"))          #  тренажёр n5²
+
+        percent_btn = self._task_btn("Проценты", "op_percent.png")           # кнопка Проценты
+        percent_btn.clicked.connect(lambda: self._open("percent"))          #  тренажёр p % от n
+
+        divis_btn = self._task_btn("Признаки делимости", "op_div.png")        # кнопка Признаки делимости
+        divis_btn.clicked.connect(lambda: self._open("divisibility"))       #  тренажёр делится ли n на d
+
+        addsub_btn = self._task_btn("Сложение / вычитание", "op_plus.png")    # кнопка Сложение / вычитание
+        addsub_btn.clicked.connect(lambda: self._open("add_sub"))           #  тренажёр сложение/вычитание
+
+        mult59_btn = self._task_btn("Умножение на 5 / 9 / 25", "op_times.png")  # кнопка Умножение на 5 / 9 / 25
+        mult59_btn.clicked.connect(lambda: self._open("mult_5_9_25"))        #  тренажёр n × {5,9,25}
+
+        # раскладка 2 колонки по 3 ряда
+        grid.addWidget(mult11_btn,  0, 0)
+        grid.addWidget(square5_btn, 0, 1)
+        grid.addWidget(percent_btn, 1, 0)
+        grid.addWidget(divis_btn,   1, 1)
+        grid.addWidget(addsub_btn,  2, 0)
+        grid.addWidget(mult59_btn,  2, 1)
 
         mix_btn = QPushButton("  Вперемешку")   # кнопка Вперемешку
         mix_btn.setObjectName("accentBig")
@@ -57,32 +74,12 @@ class TrainerListScreen(BackgroundWidget):
         layout.addWidget(back_btn)
         layout.addStretch()
 
-    def _task_btn(self, marker, label, key):
-        frame = QFrame()
-        frame.setObjectName("taskCard")
-        frame.setCursor(Qt.CursorShape.PointingHandCursor)
-
-        row = QHBoxLayout(frame)
-        row.setContentsMargins(14, 11, 14, 11)
-        row.setSpacing(12)
-
-        m = QLabel(marker)
-        m.setObjectName("marker")
-        m.setFixedSize(28, 28)
-        m.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        lbl = QLabel(label)
-        lbl.setObjectName("cardText")
-
-        row.addWidget(m)
-        row.addWidget(lbl)
-        row.addStretch()
-
-        # Карточка ведёт себя как кнопка: ловим клик мышью по всей карточке.
-        # k=key замораживает текущий ключ в лямбде (иначе все карточки
-        # ссылались бы на последний key из цикла). По клику  _open(этот key).
-        frame.mousePressEvent = lambda e, k=key: self._open(k)
-        return frame
+    def _task_btn(self, text, icon_name):
+        btn = QPushButton("  " + text)
+        btn.setObjectName("menu")
+        btn.setIcon(QIcon(img_path(icon_name)))
+        btn.setIconSize(QSize(32, 32))
+        return btn
 
     def _open(self, kind):
         # обработчик клика по карточке/кнопке Вперемешку:
@@ -119,7 +116,7 @@ class TrainerWorkScreen(BackgroundWidget):
         top_row.addStretch()
         top_row.addWidget(self.counter)
 
-        self.task = QLabel("")            # текст задания задаётся в next_task
+        self.task = QLabel("") # текст задания задаётся в next_task
         self.task.setObjectName("equation")
         self.task.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -127,7 +124,7 @@ class TrainerWorkScreen(BackgroundWidget):
         self.answer_input.setPlaceholderText("ответ")
         self.answer_input.setFixedWidth(360)
         self.answer_input.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        # в поле ответа можно вводить ТОЛЬКО цифры (целое число от 0)
+        # в поле ответа можно вводить только цифры (целое число от 0)
         self.answer_input.setValidator(QIntValidator(0, 1000000000, self))
         self.answer_input.returnPressed.connect(self.check_answer)   # Enter в поле = кнопка Ответ  check_answer()
 
