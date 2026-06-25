@@ -5,15 +5,15 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon
 
-from logic.data_loader import load_lessons   # читает data/lessons.json
-from core.paths import BASE, img_path                 # базовая папка проекта (для картинок)
+from logic.data_loader import load_lessons
+from core.paths import BASE, img_path
 
 
 class LessonScreen(QWidget):
     def __init__(self, main_window):
         super().__init__()
         self.main = main_window
-        self.lessons = []              # сюда загрузим список лекций
+        self.lessons = []
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(26, 26, 26, 26)
@@ -24,12 +24,11 @@ class LessonScreen(QWidget):
         columns.setSpacing(16)
 
         # слева — список тем
-        self.topics = QListWidget()    # СПИСОК ТЕМ (выбор темы = обработчик show_lesson)
+        self.topics = QListWidget()    # список тем (выбор темы = обработчик show_lesson)
         self.topics.setFixedWidth(260)
         self.topics.setWordWrap(True)  # длинные названия переносятся на 2 строки
-        self.topics.setHorizontalScrollBarPolicy(
-            Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        # как только выбрали другую строку — обновим правую часть → обработчик show_lesson()
+        self.topics.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        # как только выбрали другую строку — обновим правую часть обработчик show_lesson()
         self.topics.currentRowChanged.connect(self.show_lesson)
 
         # справа — содержимое выбранной темы
@@ -55,7 +54,7 @@ class LessonScreen(QWidget):
         self.topic_image.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.topic_image.setMinimumHeight(160)
 
-        # строка с плашкой «Урок N» — прижата влево, чтобы была компактной
+        # строка с плашкой Урок N — прижата влево
         chip_row = QHBoxLayout()
         chip_row.addWidget(self.topic_lesson_no)
         chip_row.addStretch()
@@ -72,19 +71,19 @@ class LessonScreen(QWidget):
         right_box.setLayout(right)
         scroll = QScrollArea()
         scroll.setWidget(right_box)
-        scroll.setWidgetResizable(True)             # содержимое тянется по ширине
+        scroll.setWidgetResizable(True) # содержимое тянется по ширине
         scroll.setFrameShape(QFrame.Shape.NoFrame)  # убрать рамку прокрутки
 
         columns.addWidget(self.topics)
         columns.addWidget(scroll)
 
-        back_btn = QPushButton("  В главное меню")   # КНОПКА «В главное меню»
+        back_btn = QPushButton("   В главное меню")   # кнопка В главное меню
         back_btn.setObjectName("big")
-        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка вместо символа ←
+        back_btn.setIcon(QIcon(img_path("icon_back.png")))   # стрелка-картинка
         back_btn.setIconSize(QSize(20, 20))
-        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # → вернуться в меню
+        back_btn.clicked.connect(lambda: self.main.go_to(self.main.menu))   # вернуться в меню
 
-        # кладём кнопку в строку и прижимаем влево (не на всю ширину)
+        # кладём кнопку в строку и прижимаем влево
         back_row = QHBoxLayout()
         back_row.addWidget(back_btn)
         back_row.addStretch()

@@ -15,7 +15,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Тренажёр устного счёта")
-        self.current_user = None           # кто вошёл (заполняется после входа)
+        self.current_user = None # кто вошёл (заполняется после входа)
 
         self.stack = QStackedWidget()
         self.setCentralWidget(self.stack)

@@ -1,6 +1,4 @@
 # auth.py — регистрация и вход.
-# Пользователи хранятся в data/users.json, пароль — не в открытом виде,
-# а в виде хеша (SHA-256, модуль hashlib).
 
 import json
 import hashlib
